@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2022-09-25 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>&lrm;</title>
+<meta name="author" content="Lu Hui" />
+<meta name="generator" content="Org Mode" />
+</head>
+<body>
+<div id="content" class="content">
+<div id="outline-container-org7fd6ceb" class="outline-2">
+<h2 id="org7fd6ceb">build a FHS container</h2>
+<div class="outline-text-2" id="text-org7fd6ceb">
+<p>
+I&rsquo;m using GNU Guix System on my computer
+</p>
+
+<p>
+OpenWRT and Buildroot can&rsquo;t compile use GNU Guix
+</p>
+
+<p>
+because they are not considered for non-FHS environments
+</p>
+
+<p>
+so I use docker and singularity to make it work
+</p>
+</div>
+
+<div id="outline-container-org3e38084" class="outline-3">
+<h3 id="org3e38084">process</h3>
+<div class="outline-text-3" id="text-org3e38084">
+<div class="org-src-container">
+<pre class="src src-text"><code>mkdir crosswork &amp;&amp; cd crosswork</code>
+<code>      |</code>
+<code>      v</code>
+<code>touch Dockerfile &amp;&amp; $EDITOR Dockerfile</code>
+<code>      |</code>
+<code>      v</code>
+<code>sudo docker build -t crosswork .</code>
+<code>      |</code>
+<code>      v</code>
+<code>sudo docker run --name crosswork crosswork /bin/sh</code>
+<code>      |</code>
+<code>      v</code>
+<code>sudo docker export crosswork -o crosswork.tar</code>
+<code>      |</code>
+<code>      | # note: because docker need create user by your hand, it's insecure.</code>
+<code>      | # note: use singularity instead docker to run container</code>
+<code>      v</code>
+<code>sqfstar crosswork.squashfs &lt; crosswork.tar</code>
+<code>      |</code>
+<code>      v</code>
+<code>singularity shell -e crosswork.squashfs</code>
+<code>      |</code>
+<code>      v</code>
+<code>     bash</code>
+<code>      |</code>
+<code>      v</code>
+<code>cd path/to/openwrt-src/</code>
+<code>      |</code>
+<code>      v</code>
+<code># now you can compile openwrt, start your work!</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p>Last updated: 2022-09-25</p>
+</div>
+</body>
+</html>

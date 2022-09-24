@@ -1,0 +1,27 @@
+* LuHui's Blog
+
+User Firendly for:
+
+- w3m
+- lynx
+- links
+- edbrowse
+- abaco
+- mothra
+- icecat
+- ungoogled-chromium
+
+* About
+
+Linux / Plan9 / OpenBSD user
+
+* Posts
+
+[[file:2022-09-24-fhs-container.org]]
+
+
+* friends
+
+- NEO https://evex.one/
+
+- 灯花 https://milena-blog.vercel.app/

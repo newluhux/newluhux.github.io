@@ -1,0 +1,45 @@
+* build a FHS container
+
+I'm using GNU Guix System on my computer
+
+OpenWRT and Buildroot can't compile use GNU Guix
+
+because they are not considered for non-FHS environments
+
+so I use docker and singularity to make it work
+
+** process
+
+#+BEGIN_SRC text
+  mkdir crosswork && cd crosswork
+	|
+	v
+  touch Dockerfile && $EDITOR Dockerfile
+	|
+	v
+  sudo docker build -t crosswork .
+	|
+	v
+  sudo docker run --name crosswork crosswork /bin/sh
+	|
+	v
+  sudo docker export crosswork -o crosswork.tar
+	|
+	| # note: because docker need create user by your hand, it's insecure.
+	| # note: use singularity instead docker to run container
+	v
+  sqfstar crosswork.squashfs < crosswork.tar
+	|
+	v
+  singularity shell -e crosswork.squashfs
+	|
+	v
+       bash
+	|
+	v
+  cd path/to/openwrt-src/
+	|
+	v
+  # now you can compile openwrt, start your work!
+#+END_SRC
+
