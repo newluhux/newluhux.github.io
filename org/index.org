@@ -18,6 +18,8 @@ Linux / Plan9 / OpenBSD user
 
 * Posts
 
+[[file:2022-09-23-replace-vps-os-to-plan9.org]]
+
 [[file:2022-09-24-fhs-container.org]]
 
 
@@ -25,4 +27,4 @@ Linux / Plan9 / OpenBSD user
 
 - NEO https://evex.one/
 
-- 灯花 https://milena-blog.vercel.app/
+- 灯花 http://yisui.zyglq.cn

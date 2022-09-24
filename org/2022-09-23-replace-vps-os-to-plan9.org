@@ -1,0 +1,145 @@
+* use 9front replace vps's operating system
+
+You can test this blog on local virtual machine
+
+** Need
+*** out-of-band management console
+
+Need a out-of-band management console to connect vps's screen
+
+*** kvm or bare metal
+
+OpenVZ or other container technology not discussed here
+
+** Stage 0 boot to a linux in ramdisk
+*** Download iPXE image
+
+MBR:
+
+#+BEGIN_SRC shell
+wget http://boot.salstar.sk/ipxe/ipxe.usb  
+#+END_SRC
+
+*** Write iPXE image to disk
+
+#+BEGIN_SRC shell
+  sync # ensure data is sync to disk
+  dd if=ipxe.usb of=/dev/vda conv=sync # write image to harddisk
+  reboot -f # restart now
+#+END_SRC
+
+*** use iPXE to boot a linux in RAM
+
+now please connect vps's screen, use out-of-band management console
+
+note: if vps privoder not have network autoconf, you may be need configure network manual
+
+If it success, you now can seem a menu.
+
+please select 'slackware' to boot
+
+if it failed:
+
+#+BEGIN_SRC
+booting from Hard Disk...
+iPXE initialising devices...ok
+
+
+
+iPXE 1.21.1+ (g081b3) -- Open Source Network Boot Firmware -- https://ipxe.org
+Features: DNS FTP HTTP HTTPS iSCSI TFTP SRP VLAN AoE ELF MBOOT PXE bzImage Menu 
+PXEXT
+
+boot.salstar.sk - SAL's boot menu
+
+Waiting for link-up on net0... ok
+Configuring (net0 52:54:00:12:34:56)...... ok
+IP: 10.0.2.15, netmask: 255.255.255.0, gateway: 10.0.2.2
+Could not get time and date: Connection timed out (https://ipxe.org/4c496035)
+https://boot.salstar.sk/by_mac/52:54:00:12:34:56... Network unreachable (https:/
+/ipxe.org/280a6011)
+https://boot.salstar.sk/by_ip/10.0.2.15... Network unreachable (https://ipxe.org
+/280a6011)
+https://boot.salstar.sk/menu.ipxe... Network unreachable (https://ipxe.org/280a6
+011)
+Press any key to enter failsafe menu ...
+#+END_SRC
+
+please press ENTER to start failsafe menu.
+
+select 'Start iPXE shell'
+
+iPXE shell:
+
+#+BEGIN_SRC
+iPXE> 
+#+END_SRC
+
+you can boot 'slackware' by:
+
+#+BEGIN_SRC
+  kernel ftp://<ip addr or domain name>/slackware/slackware64-current/kernels/huge.s/bzImage
+  initrd ftp://<ip addr or domain name>/slackware/slackware64-current/isolinux/initrd.img
+  boot
+#+END_SRC
+
+note: if your dns not working, please use ip address instead domain name.
+
+** Stage 1 download 9front image and write to disk
+*** Download 9front image
+
+use root login, then:
+
+#+BEGIN_SRC shell
+dhcpcd eth0 # setup network
+wget https://9front.org/iso/http://9front.org/iso/9front-<version>.amd64.iso.gz # download
+#+END_SRC
+
+*** write 9front image to disk
+
+#+BEGIN_SRC shell
+  zcat 9front-<version>.amd64.iso.gz | dd bs=1M of=/dev/vda conv=sync # write
+  sync # ensure sync to disk
+  reboot # reboot
+#+END_SRC
+
+** Stage 2 install 9front
+
+now you can install 9front.
+
+but have some notice:
+
+*** configfs
+
+if vps's disk size is small , please use hjfs.
+
+*** prepdisk
+
+in prepdisk phases, you can't remove installation image's part.
+
+safe method is create a new part in space outside the installation image
+
+#+BEGIN_SRC
+If there is enough room, a Plan 9 partition will be
+suggested; you can probably just type 'w' and then 'q'.
+
+cylinder = 1048576 bytes
+   empty                 0 463          (463 cylinders, 463.00 MB)
+   * p1                  463 464        (1 cylinders, 1.00 MB) ESP
+  '  p2                  464 4560       (4096 cylinders, 4.00 GB) PLAN9 # this is new part , outside of installation image
+>>> w
+>>> q
+#+END_SRC
+
+** All is done
+
+after installation, all is done, reboot your vps and use 9front!
+
+
+** References
+
+http://boot.salstar.sk/
+
+http://9front.org/releases/
+
+
