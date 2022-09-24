@@ -2,6 +2,7 @@
 
 User Firendly for:
 
+- eww
 - w3m
 - lynx
 - links
