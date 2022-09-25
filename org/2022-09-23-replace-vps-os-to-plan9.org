@@ -92,7 +92,7 @@ use root login, then:
 
 #+BEGIN_SRC shell
 dhcpcd eth0 # setup network
-wget https://9front.org/iso/http://9front.org/iso/9front-<version>.amd64.iso.gz # download
+wget http://9front.org/iso/9front-<version>.amd64.iso.gz # download
 #+END_SRC
 
 *** write 9front image to disk
