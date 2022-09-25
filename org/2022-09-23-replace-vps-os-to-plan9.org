@@ -11,7 +11,7 @@ Need a out-of-band management console to connect vps's screen
 
 OpenVZ or other container technology not discussed here
 
-** Stage 0 boot to a linux in ramdisk
+** Stage 0 boot a linux in RAM
 *** Download iPXE image
 
 MBR:
@@ -28,7 +28,7 @@ wget http://boot.salstar.sk/ipxe/ipxe.usb
   reboot -f # restart now
 #+END_SRC
 
-*** use iPXE to boot a linux in RAM
+*** use iPXE boot a linux in RAM
 
 now please connect vps's screen, use out-of-band management console
 
