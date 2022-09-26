@@ -16,6 +16,9 @@ User Firendly for:
 
 Linux / Plan9 / OpenBSD user
 
+My life take a lot of time to fix sucks code on *nix, *nix is a toilet.
+                 -- by LuHui
+
 * Posts
 
 [[file:2022-09-23-replace-vps-os-to-plan9.org]]
