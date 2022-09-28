@@ -1,0 +1,57 @@
+* Linux framebuffer programming
+
+** framebuffer and memory
+
+framebuffer is a memory area, provide "/dev/fbN" to access it.
+
+** open framebuffer
+
+#+BEGIN_SRC
+  int fbdev_fd = open("/dev/fb0",O_RDWR);
+#+END_SRC
+
+** get framebuffer size
+
+#+BEGIN_SRC
+  struct fb_fix_screeninfo fbdev_finfo;
+  ioctl(fbdev_fd, FBIOGET_FSCREENINFO, &fbdev_finfo);
+  uint32_t fbdev_size = fbdev_finfo.smem_len;
+#+END_SRC
+
+** use mmap()
+
+#+BEGIN_SRC
+  uint8_t *fbdev_mem = (uint8_t *)mmap(NULL,fbdev_size,
+                                      PROT_READ | PROT_WRITE,
+                                      MAP_SHARED, fbdev_fd ,0);
+  memset(fbdev_mem, 0, fbdev_size); // make screen blank
+#+END_SRC
+
+** use read() / write()
+
+#+BEGIN_SRC
+  uint8_t *buf = (uint8_t *)malloc(fbdev_size);
+  memset(buf,0,fbdev_size);
+  write(fbdev_fd, buf, fbdev_size); // make screen blank
+#+END_SRC
+
+** framebuffer data format
+
+TODO
+
+** draw pixel
+
+TODO
+
+** draw rect
+
+TODO
+
+** draw char use bitmap font
+
+TODO
+
+** convert bmp file to framebuffer format
+
+TODO
+

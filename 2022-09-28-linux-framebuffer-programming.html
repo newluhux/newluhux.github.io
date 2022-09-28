@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2022-09-28 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>&lrm;</title>
+<meta name="author" content="Lu Hui" />
+<meta name="generator" content="Org Mode" />
+</head>
+<body>
+<div id="content" class="content">
+<div id="outline-container-org17238dd" class="outline-2">
+<h2 id="org17238dd">Linux framebuffer programming</h2>
+<div class="outline-text-2" id="text-org17238dd">
+</div>
+<div id="outline-container-orgb16edc2" class="outline-3">
+<h3 id="orgb16edc2">framebuffer and memory</h3>
+<div class="outline-text-3" id="text-orgb16edc2">
+<p>
+framebuffer is a memory area, provide &ldquo;/dev/fbN&rdquo; to access it.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org9d2429b" class="outline-3">
+<h3 id="org9d2429b">open framebuffer</h3>
+<div class="outline-text-3" id="text-org9d2429b">
+<pre class="example">
+<code>int fbdev_fd = open("/dev/fb0",O_RDWR);</code>
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgc6837f7" class="outline-3">
+<h3 id="orgc6837f7">get framebuffer size</h3>
+<div class="outline-text-3" id="text-orgc6837f7">
+<pre class="example">
+<code>struct fb_fix_screeninfo fbdev_finfo;</code>
+<code>ioctl(fbdev_fd, FBIOGET_FSCREENINFO, &amp;fbdev_finfo);</code>
+<code>uint32_t fbdev_size = fbdev_finfo.smem_len;</code>
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org63415c0" class="outline-3">
+<h3 id="org63415c0">use mmap()</h3>
+<div class="outline-text-3" id="text-org63415c0">
+<pre class="example">
+<code>uint8_t *fbdev_mem = (uint8_t *)mmap(NULL,fbdev_size,</code>
+<code>				    PROT_READ | PROT_WRITE,</code>
+<code>				    MAP_SHARED, fbdev_fd ,0);</code>
+<code>memset(fbdev_mem, 0, fbdev_size); // make screen blank</code>
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgbea04e4" class="outline-3">
+<h3 id="orgbea04e4">use read() / write()</h3>
+<div class="outline-text-3" id="text-orgbea04e4">
+<pre class="example">
+<code>uint8_t *buf = (uint8_t *)malloc(fbdev_size);</code>
+<code>memset(buf,0,fbdev_size);</code>
+<code>write(fbdev_fd, buf, fbdev_size); // make screen blank</code>
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org3a29aec" class="outline-3">
+<h3 id="org3a29aec">framebuffer data format</h3>
+<div class="outline-text-3" id="text-org3a29aec">
+<p>
+TODO
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgd0e214a" class="outline-3">
+<h3 id="orgd0e214a">draw pixel</h3>
+<div class="outline-text-3" id="text-orgd0e214a">
+<p>
+TODO
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf335645" class="outline-3">
+<h3 id="orgf335645">draw rect</h3>
+<div class="outline-text-3" id="text-orgf335645">
+<p>
+TODO
+</p>
+</div>
+</div>
+
+<div id="outline-container-orge5752fb" class="outline-3">
+<h3 id="orge5752fb">draw char use bitmap font</h3>
+<div class="outline-text-3" id="text-orge5752fb">
+<p>
+TODO
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgd712218" class="outline-3">
+<h3 id="orgd712218">convert bmp file to framebuffer format</h3>
+<div class="outline-text-3" id="text-orgd712218">
+<p>
+TODO
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p>Last updated: 2022-09-28</p>
+</div>
+</body>
+</html>

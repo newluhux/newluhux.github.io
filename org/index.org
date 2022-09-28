@@ -16,14 +16,19 @@ User Firendly for:
 
 Linux / Plan9 / OpenBSD user
 
+#+BEGIN_SRC
 My life take a lot of time to fix sucks code on *nix, *nix is a toilet.
                  -- by LuHui
+#+END_SRC
 
+#+BEGIN_SRC
 That's your country.
                  -- by LuHui
-
+#+END_SRC
 		 
 * Posts
+
+[[file:2022-09-28-linux-framebuffer-programming.org]]
 
 [[file:2022-09-23-replace-vps-os-to-plan9.org]]
 
