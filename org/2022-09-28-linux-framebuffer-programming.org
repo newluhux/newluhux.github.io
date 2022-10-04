@@ -37,21 +37,64 @@ framebuffer is a memory area, provide "/dev/fbN" to access it.
 
 ** framebuffer data format
 
-TODO
+#+BEGIN_SRC text
+You can get and set parts of the color map. Communication is done with
+16 bits per color part (red, green, blue, transparency) to support all
+existing hardware. The driver does all the computations needed to
+apply it to the hardware (round it down to less bits, maybe throw
+away transparency).
+       -- from:https://www.kernel.org/doc/html/latest/fb/framebuffer.html
+#+END_SRC
+
+** get bits per pixel 
+
+#+BEGIN_SRC
+struct fb_var_screeninfo fbdev_vinfo;
+ioctl(fbdev_fd, FBIOGET_VSCREENINFO, &fbdev_vinfo);
+// you need fbdev_vinfo.bits_per_pixel
+#+END_SRC
+
+if bits_per_pixel is 8, it mean a pixel in memory use 1 bytes.
+
+if bits_per_pixel is 32, it mean a pixel in memory use 4 bytes.
 
 ** draw pixel
 
-TODO
+#+BEGIN_SRC
+void fbdev_draw_pixel(uint x, uint y, uint32_t color) {
+        // position in framebuffer, you can also use lseek(), write()
+	int pos = y * fbdev_finfo.line_length +
+		x * sizeof(fbdev_vinfo.bits_per_pixel);
+	uint8_t *fbp8 = (uint8_t *)fbdev_mem + pos;
+	uint16_t *fbp16 = (uint16_t *)fbp8;
+	uint32_t *fbp32 = (uint32_t *)fbp8;
+	switch(fbdev_vinfo.bits_per_pixel) {
+	case 32:
+		*fbp32 = color;
+		break;
+	case 16:
+		*fbp16 = color;
+		break;
+	case 8:
+		*fbp8 = color;
+		break;
+	default:
+		*fbp8 = color;
+		break;
+	}
+	return;
+}
+#+END_SRC
 
-** draw rect
+example:
 
-TODO
+#+BEGIN_SRC
+  fbdev_draw_pixel(100,100,0xFFFFFF);
+#+END_SRC
+
+you will see a white point on screen (100,100)
 
 ** draw char use bitmap font
-
-TODO
-
-** convert bmp file to framebuffer format
 
 TODO
 
