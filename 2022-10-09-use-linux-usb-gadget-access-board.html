@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2022-10-09 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>&lrm;</title>
+<meta name="author" content="Lu Hui" />
+<meta name="generator" content="Org Mode" />
+</head>
+<body>
+<div id="content" class="content">
+<div id="outline-container-org0fbda20" class="outline-2">
+<h2 id="org0fbda20">use linux usb gadget access board</h2>
+<div class="outline-text-2" id="text-org0fbda20">
+<p>
+many linux device remove serial port pin in production.
+</p>
+
+<p>
+you can add gadget on bootup to access board.
+</p>
+</div>
+
+<div id="outline-container-org30b52dd" class="outline-3">
+<h3 id="org30b52dd">usb gadget serial port</h3>
+<div class="outline-text-3" id="text-org30b52dd">
+<p>
+linux kernel support console on usb gadget serial port (ttyGSX)
+</p>
+
+<p>
+kernel config example (rpi0):
+</p>
+
+<div class="org-src-container">
+<pre class="src src-text"><code>CONFIG_USB_OTG=y</code>
+<code>CONFIG_USB_DWC2=y</code>
+<code>CONFIG_USB_DWC2_PERIPHERAL=y # default use gadget mode</code>
+<code>CONFIG_USB_GADGET=y</code>
+<code>CONFIG_USB_G_SERIAL=y # compile gadget serial in kernel</code>
+<code>CONFIG_U_SERIAL_CONSOLE=y # allow console use usb gadget serial port</code>
+</pre>
+</div>
+
+<p>
+then append kernel argument:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-text"><code>console=ttyGS0,115200</code>
+</pre>
+</div>
+
+<p>
+you may be need change devicetree to enable dwc2
+</p>
+
+<p>
+config.txt:
+</p>
+
+<pre class="example">
+<code>dtoverlay=dwc2</code>
+</pre>
+
+<p>
+then bootup board.
+</p>
+
+<p>
+you will get a serial port device &rsquo;/dev/ttyACMX&rsquo; on your computer:
+</p>
+
+<p>
+dmesg:
+</p>
+
+<pre class="example">
+<code>usb 3-1: USB disconnect, device number 7</code>
+<code>usb 3-1: new high-speed USB device number 8 using xhci_hcd</code>
+<code>usb 3-1: New USB device found, idVendor=0525, idProduct=a4a7, bcdDevice= 5.10</code>
+<code>usb 3-1: New USB device strings: Mfr=1, Product=2, SerialNumber=0</code>
+<code>usb 3-1: Product: Gadget Serial v2.4</code>
+<code>usb 3-1: Manufacturer: Linux 5.10.92 with 20980000.usb</code>
+<code>cdc_acm 3-1:2.0: ttyACM0: USB ACM device</code>
+<code>usbcore: registered new interface driver cdc_acm</code>
+<code>cdc_acm: USB Abstract Control Model driver for USB modems and ISDN adapters</code>
+</pre>
+
+<p>
+connect it, you will see kernel boot log.
+</p>
+
+<p>
+you can also run &rsquo;getty&rsquo; on serial port.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org622098e" class="outline-3">
+<h3 id="org622098e">usb ethernet</h3>
+<div class="outline-text-3" id="text-org622098e">
+<p>
+many GNU/Linux on android phone use this method.
+</p>
+
+<p>
+kernel config example (rpi0):
+</p>
+
+<p>
+TODO
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p>Last updated: 2022-10-09</p>
+</div>
+</body>
+</html>

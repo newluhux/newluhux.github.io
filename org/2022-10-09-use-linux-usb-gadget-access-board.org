@@ -1,0 +1,64 @@
+* use linux usb gadget access board
+
+many linux device remove serial port pin in production.
+
+you can add gadget on bootup to access board.
+
+** usb gadget serial port
+
+linux kernel support console on usb gadget serial port (ttyGSX)
+
+kernel config example (rpi0):
+
+#+BEGIN_SRC text
+CONFIG_USB_OTG=y
+CONFIG_USB_DWC2=y
+CONFIG_USB_DWC2_PERIPHERAL=y # default use gadget mode
+CONFIG_USB_GADGET=y
+CONFIG_USB_G_SERIAL=y # compile gadget serial in kernel
+CONFIG_U_SERIAL_CONSOLE=y # allow console use usb gadget serial port
+#+END_SRC
+
+then append kernel argument:
+
+#+BEGIN_SRC text
+console=ttyGS0,115200
+#+END_SRC
+
+you may be need change devicetree to enable dwc2
+
+config.txt:
+
+#+BEGIN_SRC
+dtoverlay=dwc2
+#+END_SRC
+
+then bootup board.
+
+you will get a serial port device '/dev/ttyACMX' on your computer:
+
+dmesg:
+
+#+BEGIN_SRC
+usb 3-1: USB disconnect, device number 7
+usb 3-1: new high-speed USB device number 8 using xhci_hcd
+usb 3-1: New USB device found, idVendor=0525, idProduct=a4a7, bcdDevice= 5.10
+usb 3-1: New USB device strings: Mfr=1, Product=2, SerialNumber=0
+usb 3-1: Product: Gadget Serial v2.4
+usb 3-1: Manufacturer: Linux 5.10.92 with 20980000.usb
+cdc_acm 3-1:2.0: ttyACM0: USB ACM device
+usbcore: registered new interface driver cdc_acm
+cdc_acm: USB Abstract Control Model driver for USB modems and ISDN adapters
+#+END_SRC
+
+connect it, you will see kernel boot log.
+
+you can also run 'getty' on serial port.
+
+** usb ethernet
+
+many GNU/Linux on android phone use this method.
+
+kernel config example (rpi0):
+
+TODO

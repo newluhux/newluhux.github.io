@@ -28,6 +28,8 @@ That's your country.
 		 
 * Posts
 
+[[file:2022-10-09-use-linux-usb-gadget-access-board.org]]
+
 [[file:2022-09-28-linux-framebuffer-programming.org]]
 
 [[file:2022-09-23-replace-vps-os-to-plan9.org]]
