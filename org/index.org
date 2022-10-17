@@ -28,6 +28,8 @@ That's your country.
 		 
 * Posts
 
+[[file:2022-10-17-buildroot-kernel-module-tutor.org]]
+
 [[file:2022-10-09-use-linux-usb-gadget-access-board.org]]
 
 [[file:2022-09-28-linux-framebuffer-programming.org]]

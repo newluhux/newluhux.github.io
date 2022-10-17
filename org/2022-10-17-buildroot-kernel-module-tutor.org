@@ -1,0 +1,160 @@
+* use buildroot develop linux kernel module
+
+** prepare buildroot source tree
+
+#+BEGIN_SRC shell
+  git clone https://git.buildroot.net/buildroot
+  cd buildroot
+  git checkout 2022.08.1 # checkout a stable version
+#+END_SRC
+
+** create directory
+
+#+BEGIN_SRC shell
+  mkdir package/lkhello
+  mkdir package/lkhello/src
+#+END_SRC
+
+** add Config.in
+
+#+BEGIN_SRC shell
+  $EDITOR package/lkhello/Config.in
+#+END_SRC
+
+write:
+
+#+BEGIN_SRC text
+config BR2_PACKAGE_LKHELLO
+	bool "lkhello"
+	depends on BR2_LINUX_KERNEL
+	help
+	 linux kernel hello
+
+comment "lkhello needs a Linux kernel to be built"
+	depends on !BR2_LINUX_KERNEL	  
+#+END_SRC
+
+** add lkhello.mk
+
+#+BEGIN_SRC shell
+  $EDITOR package/lkhello/lkhello.mk
+#+END_SRC
+
+write:
+
+#+BEGIN_SRC makefile
+################################################################################
+#
+# lkhello
+#
+################################################################################
+
+LKHELLO_VERSION = 0.1
+LKHELLO_SITE = "$(TOPDIR)/package/lkhello/src"
+LKHELLO_SITE_METHOD = local
+LKHELLO_MODULE_MAKE_OPTS = CONFIG_LKHELLO=m
+
+$(eval $(kernel-module))
+$(eval $(generic-package))
+#+END_SRC
+
+** write module
+
+add Kconfig
+
+#+BEGIN_SRC shell
+$EDITOR package/lkhello/src/Kconfig
+#+END_SRC
+
+write:
+
+#+BEGIN_SRC text
+menuconfig LKHELLO
+	tristate "linux kernel helloworld"
+#+END_SRC
+
+
+add Makefile
+
+#+BEGIN_SRC shell
+$EDITOR package/lkhello/src/Makefile
+#+END_SRC
+
+write:
+
+#+BEGIN_SRC text
+obj-m := lkhello.o
+#+END_SRC
+
+
+add lkhello.c
+
+#+BEGIN_SRC shell
+$EDITOR package/lkhello/src/Makefile
+#+END_SRC
+
+write:
+
+#+BEGIN_SRC c
+#include <linux/init.h>
+#include <linux/module.h>
+
+MODULE_LICENSE("Dual BSD/GPL");
+
+static int lkhello_init(void) {
+	printk(KERN_ALERT "Hello, World\n");
+	return 0;
+}
+
+static void lkhello_exit(void) {
+	printk(KERN_ALERT "Bye, World\n");
+}
+
+module_init(lkhello_init);
+module_exit(lkhello_exit);
+#+END_SRC
+
+
+** add to buildroot menu
+
+#+BEGIN_SRC shell
+$EDITOR package/Config.in
+#+END_SRC
+
+add something like other package's define:
+
+#+BEGIN_SRC diff
+--- a/package/Config.in
++++ b/package/Config.in
+@@ -2680,4 +2680,8 @@ menu "Text editors and viewers"
+ 	source "package/vim/Config.in"
+ endmenu
+ 
++menu "my packages"
++	source "package/lkhello/Config.in"
++endmenu
++
+ endmenu
+#+END_SRC
+
+* all is done
+
+all is done, now you can select 'lkhello' use:
+
+#+BEGIN_SRC shell
+make menuconfig
+#+END_SRC
+
+#+BEGIN_SRC text
+  Target packages  --->
+	   my packages  --->
+		  [*] lkhello   
+#+END_SRC
+
+select lkhello and compile firmware.
+
+boot up firmware.
+
+and 'modprobe lkhello' to print a 'Hello, World' in kernel log
+
+use 'rmmod lkhello' to print a 'Bye, World' in kernel log
