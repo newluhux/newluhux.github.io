@@ -1,8 +1,7 @@
 (setq inhibit-startup-screen t)
-(setq default-input-method 'rime)
 ;; my blog
 (require 'ox-publish)
-(defvar blog-path (concat (getenv "HOME") "/project/blog"))
+(defvar blog-path (concat (getenv "HOME") "/work/blog"))
 (defvar blog-base-directory (concat blog-path "/org/"))
 (defvar blog-publishing-directory (concat blog-path "/"))
 

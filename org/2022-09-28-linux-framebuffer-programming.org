@@ -64,7 +64,7 @@ if bits_per_pixel is 32, it mean a pixel in memory use 4 bytes.
 void fbdev_draw_pixel(uint x, uint y, uint32_t color) {
         // position in framebuffer, you can also use lseek(), write()
 	int pos = y * fbdev_finfo.line_length +
-		x * sizeof(fbdev_vinfo.bits_per_pixel);
+		x * fbdev_vinfo.bits_per_pixel / 8;
 	uint8_t *fbp8 = (uint8_t *)fbdev_mem + pos;
 	uint16_t *fbp16 = (uint16_t *)fbp8;
 	uint32_t *fbp32 = (uint32_t *)fbp8;
