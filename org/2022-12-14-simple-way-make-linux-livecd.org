@@ -1,0 +1,194 @@
+* simple way make linux livecd
+
+** use GNU Guix
+
+GNU Guix can define whole system use scheme lisp.
+
+** make a simple config.scm
+
+file config.scm:
+
+#+BEGIN_SRC scheme
+(use-modules (gnu))
+(use-service-modules networking)
+(use-package-modules certs)
+
+(operating-system
+  (host-name "livecd")
+  (timezone "UTC")
+  (locale "en_US.utf8")
+
+  ;; this bootloader config will ignore by disk image generate.
+  (bootloader (bootloader-configuration
+                (bootloader grub-bootloader)
+                (targets '("/dev/sdX")))) 
+
+  ;; this filesystem config will ignore by disk image generate.
+  (file-systems (cons* (file-system
+                        (device (file-system-label "my-root"))
+                        (mount-point "/")
+                        (type "ext4"))
+                      %base-file-systems)) ; basic filesystem, such as /proc
+
+  (users (cons* (user-account
+                 (name "guest") 
+                 (comment "Guest")
+                 (group "users")
+                 (supplementary-groups '("audio" "video")))
+                %base-user-accounts)) ; basic users, such as root, nobody
+
+  (packages (cons* nss-certs ; tls certs
+                   %base-packages)) ; basic package, such as coreutils util-linux
+
+  (services (cons* (service dhcp-client-service-type) ; dhcp client service
+                   %base-services))) ;; basic service, such as getty udev
+
+#+END_SRC
+
+** add your packages
+
+#+BEGIN_SRC diff
+diff --git a/config.scm b/config.scm
+index 0d7a449..f8eadab 100644
+--- a/config.scm
++++ b/config.scm
+@@ -1,6 +1,6 @@
+ (use-modules (gnu))
+ (use-service-modules networking)
+-(use-package-modules certs)
++(use-package-modules certs tmux emacs emacs-xyz w3m)
+ 
+ (operating-system
+   (host-name "livecd")
+@@ -27,6 +27,12 @@
+                 %base-user-accounts)) ; basic users, such as root, nobody
+ 
+   (packages (cons* nss-certs ; tls certs
++                   tmux ; terminal mux
++                   emacs ; code editor
++                   emacs-rime ; input method plugin for emacs
++                   emacs-company ; autocomplete plugin for emacs
++                   emacs-geiser ; emacs scheme plugin
++                   w3m ; text web browser
+                    %base-packages)) ; basic package, such as coreutils util-linux
+ 
+   (services (cons* (service dhcp-client-service-type) ; dhcp client service
+
+#+END_SRC
+
+** add your services
+
+#+BEGIN_SRC diff
+diff --git a/config.scm b/config.scm
+index f8eadab..480a9bb 100644
+--- a/config.scm
++++ b/config.scm
+@@ -1,5 +1,5 @@
+ (use-modules (gnu))
+-(use-service-modules networking)
++(use-service-modules networking docker dbus)
+ (use-package-modules certs tmux emacs emacs-xyz w3m)
+ 
+ (operating-system
+@@ -36,4 +36,9 @@
+                    %base-packages)) ; basic package, such as coreutils util-linux
+ 
+   (services (cons* (service dhcp-client-service-type) ; dhcp client service
++                   (service kmscon-service-type
++                            (kmscon-configuration
++                             (virtual-terminal "tty7"))) ; colorful terminal
++                   (dbus-service) ; use in kmscon
++                   (service tor-service-type) ; use for access internet
+                    %base-services))) ;; basic service, such as getty udev
+#+END_SRC
+
+** add your home config file
+
+you can define your home config file in skel:
+
+#+BEGIN_SRC shell
+  mkdir ./skel
+  cp $HOME/.bashrc ./skel/
+  cp $HOME/.tmux.conf ./skel/
+  mkdir ./skel/.emacs.d/
+  cp $HOME/.emacs.d/init.el ./skel/emacs.d/init.el
+#+END_SRC
+
+#+BEGIN_SRC diff
+diff --git a/config.scm b/config.scm
+index 480a9bb..05f5a10 100644
+--- a/config.scm
++++ b/config.scm
+@@ -25,6 +25,7 @@
+                  (group "users")
+                  (supplementary-groups '("audio" "video")))
+                 %base-user-accounts)) ; basic users, such as root, nobody
++  (skeletons `(("." ,(local-file "./skel" "skel" #:recursive? #t))))
+ 
+   (packages (cons* nss-certs ; tls certs
+                    tmux ; terminal mux
+  
+#+END_SRC
+
+** add your data file
+
+copy your data file:
+
+#+BEGIN_SRC shell
+  mkdir ./data
+  cp -r $HOME/music ./data/music
+  echo 'This is a livecd' > ./data/README
+#+END_SRC
+
+#+BEGIN_SRC diff
+diff --git a/config.scm b/config.scm
+index 05f5a10..7233379 100644
+--- a/config.scm
++++ b/config.scm
+@@ -42,4 +42,10 @@
+                              (virtual-terminal "tty7"))) ; colorful terminal
+                    (dbus-service) ; use in kmscon
+                    (service tor-service-type) ; use for access internet
++                   (service special-files-service-type
++                            `(("/README" ,(local-file "./data/README" "README"))
++                              ("/etc/config.scm" ,(local-file "./config.scm"
++                                                              "config.scm"))
++                              ("/music" ,(local-file "./data/music" "music"
++                                                     #:recursive? #t))))
+                    %base-services))) ;; basic service, such as getty udev
+
+#+END_SRC
+
+** test your config
+
+boot up a virtual machine, use qemu.
+
+#+BEGIN_SRC shell
+  `guix system vm config.scm` -m 2048
+#+END_SRC
+
+** make bootable image
+
+bootable disk image, use ext4 file system for root.
+
+#+BEGIN_SRC shell
+  guix system image config.scm
+#+END_SRC
+
+bootable livecd image, use iso9660 file system for root.
+
+#+BEGIN_SRC shell
+  guix system image -t iso9660 config.scm
+#+END_SRC
+
+other arch?, use this:
+
+#+BEGIN_SRC shell
+  guix system image --system=i686-linux config.scm
+#+END_SRC
+
+more format:
+
+#+BEGIN_SRC shell
+  guix system image --list-image-types
+#+END_SRC

@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2022-12-14 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>&lrm;</title>
+<meta name="author" content="LuHui" />
+<meta name="generator" content="Org Mode" />
+</head>
+<body>
+<div id="content" class="content">
+<div id="outline-container-org8a612ad" class="outline-2">
+<h2 id="org8a612ad">simple way make linux livecd</h2>
+<div class="outline-text-2" id="text-org8a612ad">
+</div>
+<div id="outline-container-org739aec2" class="outline-3">
+<h3 id="org739aec2">use GNU Guix</h3>
+<div class="outline-text-3" id="text-org739aec2">
+<p>
+GNU Guix can define whole system use scheme lisp.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf053d01" class="outline-3">
+<h3 id="orgf053d01">make a simple config.scm</h3>
+<div class="outline-text-3" id="text-orgf053d01">
+<p>
+file config.scm:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-scheme"><code>(use-modules (gnu))</code>
+<code>(use-service-modules networking)</code>
+<code>(use-package-modules certs)</code>
+<code></code>
+<code>(operating-system</code>
+<code>  (host-name "livecd")</code>
+<code>  (timezone "UTC")</code>
+<code>  (locale "en_US.utf8")</code>
+<code></code>
+<code>  ;; this bootloader config will ignore by disk image generate.</code>
+<code>  (bootloader (bootloader-configuration</code>
+<code>		(bootloader grub-bootloader)</code>
+<code>		(targets '("/dev/sdX")))) </code>
+<code></code>
+<code>  ;; this filesystem config will ignore by disk image generate.</code>
+<code>  (file-systems (cons* (file-system</code>
+<code>			(device (file-system-label "my-root"))</code>
+<code>			(mount-point "/")</code>
+<code>			(type "ext4"))</code>
+<code>		      %base-file-systems)) ; basic filesystem, such as /proc</code>
+<code></code>
+<code>  (users (cons* (user-account</code>
+<code>		 (name "guest") </code>
+<code>		 (comment "Guest")</code>
+<code>		 (group "users")</code>
+<code>		 (supplementary-groups '("audio" "video")))</code>
+<code>		%base-user-accounts)) ; basic users, such as root, nobody</code>
+<code></code>
+<code>  (packages (cons* nss-certs ; tls certs</code>
+<code>		   %base-packages)) ; basic package, such as coreutils util-linux</code>
+<code></code>
+<code>  (services (cons* (service dhcp-client-service-type) ; dhcp client service</code>
+<code>		   %base-services))) ;; basic service, such as getty udev</code>
+<code></code>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org745c07e" class="outline-3">
+<h3 id="org745c07e">add your packages</h3>
+<div class="outline-text-3" id="text-org745c07e">
+<div class="org-src-container">
+<pre class="src src-diff"><code>diff --git a/config.scm b/config.scm</code>
+<code>index 0d7a449..f8eadab 100644</code>
+<code>--- a/config.scm</code>
+<code>+++ b/config.scm</code>
+<code>@@ -1,6 +1,6 @@</code>
+<code> (use-modules (gnu))</code>
+<code> (use-service-modules networking)</code>
+<code>-(use-package-modules certs)</code>
+<code>+(use-package-modules certs tmux emacs emacs-xyz w3m)</code>
+<code></code>
+<code> (operating-system</code>
+<code>   (host-name "livecd")</code>
+<code>@@ -27,6 +27,12 @@</code>
+<code>		 %base-user-accounts)) ; basic users, such as root, nobody</code>
+<code></code>
+<code>   (packages (cons* nss-certs ; tls certs</code>
+<code>+                   tmux ; terminal mux</code>
+<code>+                   emacs ; code editor</code>
+<code>+                   emacs-rime ; input method plugin for emacs</code>
+<code>+                   emacs-company ; autocomplete plugin for emacs</code>
+<code>+                   emacs-geiser ; emacs scheme plugin</code>
+<code>+                   w3m ; text web browser</code>
+<code>		    %base-packages)) ; basic package, such as coreutils util-linux</code>
+<code></code>
+<code>   (services (cons* (service dhcp-client-service-type) ; dhcp client service</code>
+<code></code>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org5f89396" class="outline-3">
+<h3 id="org5f89396">add your services</h3>
+<div class="outline-text-3" id="text-org5f89396">
+<div class="org-src-container">
+<pre class="src src-diff"><code>diff --git a/config.scm b/config.scm</code>
+<code>index f8eadab..480a9bb 100644</code>
+<code>--- a/config.scm</code>
+<code>+++ b/config.scm</code>
+<code>@@ -1,5 +1,5 @@</code>
+<code> (use-modules (gnu))</code>
+<code>-(use-service-modules networking)</code>
+<code>+(use-service-modules networking docker dbus)</code>
+<code> (use-package-modules certs tmux emacs emacs-xyz w3m)</code>
+<code></code>
+<code> (operating-system</code>
+<code>@@ -36,4 +36,9 @@</code>
+<code>		    %base-packages)) ; basic package, such as coreutils util-linux</code>
+<code></code>
+<code>   (services (cons* (service dhcp-client-service-type) ; dhcp client service</code>
+<code>+                   (service kmscon-service-type</code>
+<code>+                            (kmscon-configuration</code>
+<code>+                             (virtual-terminal "tty7"))) ; colorful terminal</code>
+<code>+                   (dbus-service) ; use in kmscon</code>
+<code>+                   (service tor-service-type) ; use for access internet</code>
+<code>		    %base-services))) ;; basic service, such as getty udev</code>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org75b6c32" class="outline-3">
+<h3 id="org75b6c32">add your home config file</h3>
+<div class="outline-text-3" id="text-org75b6c32">
+<p>
+you can define your home config file in skel:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell"><code>mkdir ./skel</code>
+<code>cp $HOME/.bashrc ./skel/</code>
+<code>cp $HOME/.tmux.conf ./skel/</code>
+<code>mkdir ./skel/.emacs.d/</code>
+<code>cp $HOME/.emacs.d/init.el ./skel/emacs.d/init.el</code>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-diff"><code>diff --git a/config.scm b/config.scm</code>
+<code>index 480a9bb..05f5a10 100644</code>
+<code>--- a/config.scm</code>
+<code>+++ b/config.scm</code>
+<code>@@ -25,6 +25,7 @@</code>
+<code>		  (group "users")</code>
+<code>		  (supplementary-groups '("audio" "video")))</code>
+<code>		 %base-user-accounts)) ; basic users, such as root, nobody</code>
+<code>+  (skeletons `(("." ,(local-file "./skel" "skel" #:recursive? #t))))</code>
+<code></code>
+<code>   (packages (cons* nss-certs ; tls certs</code>
+<code>		    tmux ; terminal mux</code>
+<code></code>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge03104b" class="outline-3">
+<h3 id="orge03104b">add your data file</h3>
+<div class="outline-text-3" id="text-orge03104b">
+<p>
+copy your data file:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell"><code>mkdir ./data</code>
+<code>cp -r $HOME/music ./data/music</code>
+<code>echo 'This is a livecd' &gt; ./data/README</code>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-diff"><code>diff --git a/config.scm b/config.scm</code>
+<code>index 05f5a10..7233379 100644</code>
+<code>--- a/config.scm</code>
+<code>+++ b/config.scm</code>
+<code>@@ -42,4 +42,10 @@</code>
+<code>			      (virtual-terminal "tty7"))) ; colorful terminal</code>
+<code>		    (dbus-service) ; use in kmscon</code>
+<code>		    (service tor-service-type) ; use for access internet</code>
+<code>+                   (service special-files-service-type</code>
+<code>+                            `(("/README" ,(local-file "./data/README" "README"))</code>
+<code>+                              ("/etc/config.scm" ,(local-file "./config.scm"</code>
+<code>+                                                              "config.scm"))</code>
+<code>+                              ("/music" ,(local-file "./data/music" "music"</code>
+<code>+                                                     #:recursive? #t))))</code>
+<code>		    %base-services))) ;; basic service, such as getty udev</code>
+<code></code>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgf187195" class="outline-3">
+<h3 id="orgf187195">test your config</h3>
+<div class="outline-text-3" id="text-orgf187195">
+<p>
+boot up a virtual machine, use qemu.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell"><code>`guix system vm config.scm` -m 2048</code>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orga81694e" class="outline-3">
+<h3 id="orga81694e">make bootable image</h3>
+<div class="outline-text-3" id="text-orga81694e">
+<p>
+bootable disk image, use ext4 file system for root.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell"><code>guix system image config.scm</code>
+</pre>
+</div>
+
+<p>
+bootable livecd image, use iso9660 file system for root.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell"><code>guix system image -t iso9660 config.scm</code>
+</pre>
+</div>
+
+<p>
+other arch?, use this:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell"><code>guix system image --system=i686-linux config.scm</code>
+</pre>
+</div>
+
+<p>
+more format:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell"><code>guix system image --list-image-types</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p>Last updated: 2022-12-14</p>
+</div>
+</body>
+</html>
