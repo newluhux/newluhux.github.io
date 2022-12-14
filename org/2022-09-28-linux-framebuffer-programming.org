@@ -96,5 +96,51 @@ you will see a white point on screen (100,100)
 
 ** draw char use bitmap font
 
-TODO
+a simple 8x8 bitmap font define:
 
+#+BEGIN_SRC c
+  uint8_t bm_0[8] = {
+    0b00000000,
+    0b01111110,
+    0b01000010,
+    0b01000010,
+    0b01000010,
+    0b01000010,
+    0b01111110,
+    0b00000000
+  };
+#+END_SRC
+
+draw this font use printf:
+
+#+BEGIN_SRC c
+  int x, y;
+  for (y = 0; y < 8; y++) {
+    for (x = 0; x < 8; x++) {
+      if (bm_0[y] & 1 << x)
+	putchar('#');
+      else
+	putchar(' ');
+    }
+    putchar('\n');
+   }
+#+END_SRC
+
+draw this font on framebuffer:
+
+#+BEGIN_SRC c
+  int pos_x, pos_y;
+  pos_x = 100;
+  pos_y = 50;
+  int x, y;
+  for (y = 0; y < 8; y++) {
+    for (x = 0; x < 8; x++) {
+      if (bm_0[y] & 1 << x)
+	fbdev_draw_pixel(pos_x+x,pos_y+y,0xFFFFFF);
+      else
+	fbdev_draw_pixel(pos_x+x,pos_y+y,0x000000);
+    }
+   }
+#+END_SRC
+
+this code will draw a 0 on screen (100,50) .

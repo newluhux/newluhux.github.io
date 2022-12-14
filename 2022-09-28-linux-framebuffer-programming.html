@@ -149,7 +149,63 @@ you will see a white point on screen (100,100)
 <h3 id="orgf7903a9">draw char use bitmap font</h3>
 <div class="outline-text-3" id="text-orgf7903a9">
 <p>
-TODO
+a simple 8x8 bitmap font define:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-c"><code>uint8_t bm_0[8] = {</code>
+<code>  0b00000000,</code>
+<code>  0b01111110,</code>
+<code>  0b01000010,</code>
+<code>  0b01000010,</code>
+<code>  0b01000010,</code>
+<code>  0b01000010,</code>
+<code>  0b01111110,</code>
+<code>  0b00000000</code>
+<code>};</code>
+</pre>
+</div>
+
+<p>
+draw this font use printf:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-c"><code>int x, y;</code>
+<code>for (y = 0; y &lt; 8; y++) {</code>
+<code>  for (x = 0; x &lt; 8; x++) {</code>
+<code>    if (bm_0[y] &amp; 1 &lt;&lt; x)</code>
+<code>      putchar('#');</code>
+<code>    else</code>
+<code>      putchar(' ');</code>
+<code>  }</code>
+<code>  putchar('\n');</code>
+<code> }</code>
+</pre>
+</div>
+
+<p>
+draw this font on framebuffer:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-c"><code>int pos_x, pos_y;</code>
+<code>pos_x = 100;</code>
+<code>pos_y = 50;</code>
+<code>int x, y;</code>
+<code>for (y = 0; y &lt; 8; y++) {</code>
+<code>  for (x = 0; x &lt; 8; x++) {</code>
+<code>    if (bm_0[y] &amp; 1 &lt;&lt; x)</code>
+<code>      fbdev_draw_pixel(pos_x+x,pos_y+y,0xFFFFFF);</code>
+<code>    else</code>
+<code>      fbdev_draw_pixel(pos_x+x,pos_y+y,0x000000);</code>
+<code>  }</code>
+<code> }</code>
+</pre>
+</div>
+
+<p>
+this code will draw a 0 on screen (100,50) .
 </p>
 </div>
 </div>
