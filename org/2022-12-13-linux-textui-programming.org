@@ -1,0 +1,119 @@
+* linux textui programming
+
+** setup terminal input and output
+
+#+BEGIN_SRC c
+  int ttyfd = open("/dev/tty", O_RDWR);
+  struct termios termattr;
+  // get terminal attr from tty
+  tcgetattr(ttyfd, &termattr);
+  // set terminal to "raw" mode
+  cfmakeraw(&termattr);
+  // turn off input buffer
+  termattr.c_cc[VMIN] = 1;
+  termattr.c_cc[VTIME] = 0;
+  // apply terminal attr to tty
+  tcsetattr(ttyfd, TCSAFLUSH, &termattr);
+#+END_SRC
+
+** move cursor
+
+you can use termcap to control terminal:
+
+#+BEGIN_SRC c
+  // from: busybox editors/vi.c
+  // VT102 ESC sequences.
+  // See "Xterm Control Sequences"
+  // http://invisible-island.net/xterm/ctlseqs/ctlseqs.html
+  #define ESC "\033"
+
+  // Cursor to given coordinate (1,1: top left)
+  #define ESC_SET_CURSOR_POS     ESC"[%u;%uH"
+
+  int textui_setcur(int ttyfd, unsigned int col, unsigned int row)
+  {
+    char buf[32];
+    snprintf(buf, 32, ESC_SET_CURSOR_POS, row, col);
+    return write(ttyfd, buf, strlen(buf));
+  }
+#+END_SRC
+
+move cursor to 2, 5:
+
+#+BEGIN_SRC c
+  textui_setcur(ttyfd,2,5);
+#+END_SRC
+
+** clear screen
+
+#+BEGIN_SRC c
+  // from: busybox editors/vi.c
+  // Clear-to-end-of-screen.
+  // (We use default param here.
+  // Full sequence is "ESC [ <num> J",
+  // <num> is 0/1/2 = "erase below/above/all".)
+  #define ESC_CLEAR2EOS          ESC"[J"
+  int textui_clearterm(int ttyfd)
+  {
+    int ret;
+    ret = textui_setcur(ttyfd, 1, 1);
+    if (ret < 0)
+      return ret;
+    char buf[32];
+    snprintf(buf, 32, ESC_CLEAR2EOS);
+    return write(ttyfd, buf, strlen(buf));
+  }
+
+#+END_SRC
+
+make screen blank:
+
+#+BEGIN_SRC c
+  textui_clearterm(ttyfd);
+#+END_SRC
+
+** draw a string
+
+it will draw "Hello World" on 4, 5
+
+#+BEGIN_SRC c
+  char *msg = "Hello World";
+  textui_setcur(ttyfd,4,5);
+  write(ttyfd,msg,strlen(msg));
+#+END_SRC
+
+** erase a string
+
+erase a string is also simple:
+
+it will clean "Hello World" on 4, 5 (just fill space)
+
+#+BEGIN_SRC c
+  msg = "           ";
+  textui_setcur(ttyfd,4,5);
+  write(ttyfd,msg,strlen(msg));
+#+END_SRC
+
+** get a char from input
+
+after setup terminal, getchar() is like getch();
+
+#+BEGIN_SRC c
+  int c;
+
+  while (1) {
+    c = getchar();
+    textui_setcur(ttyfd,4,5);    
+    write(ttyfd,&c,1);
+    if (c == 'q')
+      break;
+  }
+#+END_SRC
+
+** get terminal size
+
+#+BEGIN_SRC c
+  struct winsize wsz;
+  ioctl(ttyfd, TIOCGWINSZ, &wsz);
+  printf("COL: %d, ROW: %d\n", wsz.ws_col, wsz.ws_row);
+#+END_SRC

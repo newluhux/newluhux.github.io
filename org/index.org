@@ -28,6 +28,10 @@ That's your country.
 		 
 * Posts
 
+file:2022-12-14-simple-way-make-linux-livecd.org
+
+file:2022-12-13-linux-textui-programming.org
+
 [[file:2022-10-17-buildroot-kernel-module-tutor.org]]
 
 [[file:2022-10-09-use-linux-usb-gadget-access-board.org]]
