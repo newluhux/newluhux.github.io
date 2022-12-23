@@ -192,3 +192,13 @@ more format:
 #+BEGIN_SRC shell
   guix system image --list-image-types
 #+END_SRC
+
+** need more?
+
+#+BEGIN_SRC shell
+  info guix
+#+END_SRC
+
+or
+
+https://guix.gnu.org/en/manual/devel/en/html_node/
