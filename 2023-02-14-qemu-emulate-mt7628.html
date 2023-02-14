@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-02-14 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>&lrm;</title>
+<meta name="author" content="LuHui" />
+<meta name="generator" content="Org Mode" />
+</head>
+<body>
+<div id="content" class="content">
+<div id="outline-container-org1eac7ef" class="outline-2">
+<h2 id="org1eac7ef">qemu mt7628 emulation</h2>
+<div class="outline-text-2" id="text-org1eac7ef">
+</div>
+<div id="outline-container-org3adb7b6" class="outline-3">
+<h3 id="org3adb7b6">before using</h3>
+<div class="outline-text-3" id="text-org3adb7b6">
+<p>
+I&rsquo;m add mt7628 support in qemu, some deivce is not working.
+</p>
+
+<p>
+you maybe need review source code.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org99cb17e" class="outline-3">
+<h3 id="org99cb17e">build qemu with patch</h3>
+<div class="outline-text-3" id="text-org99cb17e">
+<div class="org-src-container">
+<pre class="src src-shell"><code>git clone https://gitlab.com/qemu-project/qemu</code>
+<code>git clone https://github.com/newluhux/qemu-mt7628</code>
+<code>cd ./qemu/</code>
+<code>git branch mt7628</code>
+<code>git switch mt7628</code>
+<code>for i in ../qemu-mt7628/000*.patch</code>
+<code>do</code>
+<code>    git am &lt; $i</code>
+<code>done</code>
+<code>./configure --cc=gcc --cxx=g++ --target-list=mipsel-softmmu</code>
+<code>make -j$(nproc)</code>
+<code>make check</code>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org3902a94" class="outline-3">
+<h3 id="org3902a94">bootup mainline uboot</h3>
+<div class="outline-text-3" id="text-org3902a94">
+<div class="org-src-container">
+<pre class="src src-shell"><code>wget http://musl.cc/mipsel-linux-muslsf-cross.tgz</code>
+<code>tar xf mipsel-linux-muslsf-cross.tgz</code>
+<code>cd mipsel-linux-muslsf-cross/bin/</code>
+<code>export PATH=$PATH:$(pwd)</code>
+<code>cd -</code>
+<code>git clone https://github.com/u-boot/u-boot</code>
+<code>cd u-boot</code>
+<code>cp ./configs/linkit-smart-7688_defconfig ./.config</code>
+<code>make ARCH=mips CROSS_COMPILE=mipsel-linux-musl- menuconfig</code>
+<code># you need select:</code>
+<code># CONFIG_REMAKE_ELF=y</code>
+<code>make ARCH=mips CROSS_COMPILE=mipsel-linux-musl- -j$(nproc)</code>
+<code># create a blank flash image</code>
+<code>dd if=/dev/zero of=flash_16M.bin count=16 bs=1M</code>
+<code>../qemu/qemu-system-mipsel -M mt7628 \</code>
+<code>			   -serial telnet:localhost:4000,server \</code>
+<code>			   -serial telnet:localhost:4001,server \</code>
+<code>			   -serial telnet:localhost:4002,server \</code>
+<code>			   -drive if=mtd,file=flash_16M.bin,type=raw \</code>
+<code>			   -usb \</code>
+<code>			   -kernel ./u-boot.elf</code>
+</pre>
+</div>
+
+<p>
+telnet to localhost:4002, you will get uboot prompt:
+</p>
+
+<pre class="example">
+<code>$ telnet localhost 4002</code>
+<code>Trying 127.0.0.1...</code>
+<code>Connected to 127.0.0.1.</code>
+<code>Escape character is '^]'.</code>
+<code></code>
+<code></code>
+<code>U-Boot 2022.04 (Feb 14 2023 - 15:32:34 +0000)</code>
+<code></code>
+<code>CPU:   MediaTek MT7628A ver:1 eco:2</code>
+<code>Boot:  DDR2, SPI-NOR 3-Byte Addr, CPU clock from XTAL</code>
+<code>Clock: CPU: 575MHz, Bus: 191MHz, XTAL: 25MHz</code>
+<code>Model: LinkIt-Smart-7688</code>
+<code>DRAM:  256 MiB</code>
+<code>Core:  54 devices, 15 uclasses, devicetree: separate</code>
+<code>Loading Environment from SPIFlash... SF: Detected w25q128 with page size 256 Bytes, erase size 4 KiB, total 16 MiB</code>
+<code></code>
+<code>Net:   </code>
+<code>Warning: eth@10110000 (eth0) using random MAC address - 96:0d:9e:0d:3f:ea</code>
+<code>eth0: eth@10110000</code>
+<code>=&gt;</code>
+</pre>
+
+<p>
+Now, you can use &rsquo;tftp&rsquo; or &rsquo;fatload&rsquo; command to load a kernel image into memory.
+</p>
+
+<p>
+you also can write firmware to spi nor flash use &rsquo;sf&rsquo; command.
+</p>
+
+<p>
+after image load, use &rsquo;bootm&rsquo; bootup it.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgb38aa4d" class="outline-3">
+<h3 id="orgb38aa4d">bootup mainline linux kernel</h3>
+<div class="outline-text-3" id="text-orgb38aa4d">
+<p>
+TODO
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgc6d6f5a" class="outline-3">
+<h3 id="orgc6d6f5a">bootup plan9 kernel</h3>
+<div class="outline-text-3" id="text-orgc6d6f5a">
+<p>
+TODO
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p>Last updated: 2023-02-14</p>
+</div>
+</body>
+</html>

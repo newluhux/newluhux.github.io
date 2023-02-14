@@ -17,14 +17,12 @@ User Firendly for:
 Linux / Plan9 / OpenBSD user
 
 #+BEGIN_SRC text
-持有不同意见的人会被独裁者杀死，黑暗时代已经来了。
-#+END_SRC
-
-#+BEGIN_SRC text
 显然硬件自由比软件自由更为重要。
 #+END_SRC
 
 * Posts
+
+[[file:2023-02-14-qemu-emulate-mt7628.org]]
 
 [[file:2022-12-14-simple-way-make-linux-livecd.org]]
 

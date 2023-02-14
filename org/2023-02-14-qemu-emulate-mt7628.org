@@ -1,0 +1,89 @@
+* qemu mt7628 emulation
+
+** before using
+
+I'm add mt7628 support in qemu, some deivce is not working.
+
+you maybe need review source code.
+
+** build qemu with patch
+
+#+BEGIN_SRC shell
+  git clone https://gitlab.com/qemu-project/qemu
+  git clone https://github.com/newluhux/qemu-mt7628
+  cd ./qemu/
+  git branch mt7628
+  git switch mt7628
+  for i in ../qemu-mt7628/000*.patch
+  do
+      git am < $i
+  done
+  ./configure --cc=gcc --cxx=g++ --target-list=mipsel-softmmu
+  make -j$(nproc)
+  make check
+#+END_SRC
+
+** bootup mainline uboot
+
+#+BEGIN_SRC shell
+  wget http://musl.cc/mipsel-linux-muslsf-cross.tgz
+  tar xf mipsel-linux-muslsf-cross.tgz
+  cd mipsel-linux-muslsf-cross/bin/
+  export PATH=$PATH:$(pwd)
+  cd -
+  git clone https://github.com/u-boot/u-boot
+  cd u-boot
+  cp ./configs/linkit-smart-7688_defconfig ./.config
+  make ARCH=mips CROSS_COMPILE=mipsel-linux-musl- menuconfig
+  # you need select:
+  # CONFIG_REMAKE_ELF=y
+  make ARCH=mips CROSS_COMPILE=mipsel-linux-musl- -j$(nproc)
+  # create a blank flash image
+  dd if=/dev/zero of=flash_16M.bin count=16 bs=1M
+  ../qemu/qemu-system-mipsel -M mt7628 \
+			     -serial telnet:localhost:4000,server \
+			     -serial telnet:localhost:4001,server \
+			     -serial telnet:localhost:4002,server \
+			     -drive if=mtd,file=flash_16M.bin,type=raw \
+			     -usb \
+			     -kernel ./u-boot.elf
+#+END_SRC
+
+telnet to localhost:4002, you will get uboot prompt:
+
+#+BEGIN_SRC
+$ telnet localhost 4002
+Trying 127.0.0.1...
+Connected to 127.0.0.1.
+Escape character is '^]'.
+
+
+U-Boot 2022.04 (Feb 14 2023 - 15:32:34 +0000)
+
+CPU:   MediaTek MT7628A ver:1 eco:2
+Boot:  DDR2, SPI-NOR 3-Byte Addr, CPU clock from XTAL
+Clock: CPU: 575MHz, Bus: 191MHz, XTAL: 25MHz
+Model: LinkIt-Smart-7688
+DRAM:  256 MiB
+Core:  54 devices, 15 uclasses, devicetree: separate
+Loading Environment from SPIFlash... SF: Detected w25q128 with page size 256 Bytes, erase size 4 KiB, total 16 MiB
+
+Net:   
+Warning: eth@10110000 (eth0) using random MAC address - 96:0d:9e:0d:3f:ea
+eth0: eth@10110000
+=>
+#+END_SRC
+
+Now, you can use 'tftp' or 'fatload' command to load a kernel image into memory.
+
+you also can write firmware to spi nor flash use 'sf' command.
+
+after image load, use 'bootm' bootup it.
+
+** bootup mainline linux kernel
+
+TODO
+
+** bootup plan9 kernel
+
+TODO
