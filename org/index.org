@@ -22,6 +22,8 @@ Linux / Plan9 / OpenBSD user
 
 * Posts
 
+[[file:2023-02-16-mt7628-uboot-spl.org]]
+
 [[file:2023-02-14-qemu-emulate-mt7628.org]]
 
 [[file:2022-12-14-simple-way-make-linux-livecd.org]]
