@@ -87,3 +87,21 @@ TODO
 ** bootup plan9 kernel
 
 TODO
+
+** bootup from flash image
+
+Now, you can bootup from flash.
+
+But it will take a lot of time to run memory test,
+wait it, or modify flash image to skip it.
+
+You need dump flash image from real mt7628 board, then:
+
+#+BEGIN_SRC
+  ./qemu/qemu-system-mipsel -M mt7628 \
+			     -serial telnet:localhost:4000,server \
+			     -serial telnet:localhost:4001,server \
+			     -serial telnet:localhost:4002,server \
+			     -drive if=mtd,file=flash_16M.bin,type=raw \
+			     -usb
+#+END_SRC

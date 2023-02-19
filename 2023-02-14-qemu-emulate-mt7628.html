@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-02-14 -->
+<!-- 2023-02-19 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
@@ -136,10 +136,37 @@ TODO
 </p>
 </div>
 </div>
+
+<div id="outline-container-org43137d8" class="outline-3">
+<h3 id="org43137d8">bootup from flash image</h3>
+<div class="outline-text-3" id="text-org43137d8">
+<p>
+Now, you can bootup from flash.
+</p>
+
+<p>
+But it will take a lot of time to run memory test,
+wait it, or modify flash image to skip it.
+</p>
+
+<p>
+You need dump flash image from real mt7628 board, then:
+</p>
+
+<pre class="example">
+<code>./qemu/qemu-system-mipsel -M mt7628 \</code>
+<code>			   -serial telnet:localhost:4000,server \</code>
+<code>			   -serial telnet:localhost:4001,server \</code>
+<code>			   -serial telnet:localhost:4002,server \</code>
+<code>			   -drive if=mtd,file=flash_16M.bin,type=raw \</code>
+<code>			   -usb</code>
+</pre>
+</div>
+</div>
 </div>
 </div>
 <div id="postamble" class="status">
-<p>Last updated: 2023-02-14</p>
+<p>Last updated: 2023-02-19</p>
 </div>
 </body>
 </html>
