@@ -98,6 +98,7 @@ build NetBSD kernel is easy (on my slackware linux machine):
   mkdir ./netbsd/
   cd ./netbsd/
   wget https://ftp.NetBSD.org/pub/NetBSD/NetBSD-release-9/tar_files/src.tar.gz
+  tar -zxf src.tar.gz
   cd ./src/
   ./build.sh -U -O ~/obj -j$(nproc) -m evbmips -a mipsel tools
   cd sys/arch/evbmips/conf/
