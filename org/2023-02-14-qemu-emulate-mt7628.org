@@ -84,6 +84,79 @@ after image load, use 'bootm' bootup it.
 
 TODO
 
+** bootup mainline NetBSD kernel
+
+ref: https://www.netbsd.org/docs/guide/en/chap-build.html
+
+NetBSD have mt7628 support after NetBSD 8.0
+
+You can use Linux / NetBSD / Other OS cross build a NetBSD
+
+build NetBSD kernel is easy (on my slackware linux machine):
+
+#+BEGIN_SRC shell
+  mkdir ./netbsd/
+  cd ./netbsd/
+  wget https://ftp.NetBSD.org/pub/NetBSD/NetBSD-release-9/tar_files/src.tar.gz
+  cd ./src/
+  ./build.sh -U -O ~/obj -j$(nproc) -m evbmips -a mipsel tools
+  cd sys/arch/evbmips/conf/
+  ~/obj/tooldir.HOST/bin/nbconfig LINKITSMART7688
+  cd ../compile/LINKITSMART7688/
+  ~/obj/tooldir.HOST/bin/nbmake-evbmips depend
+  ~/obj/tooldir.HOST/bin/nbmake-evbmips
+#+END_SRC
+
+if it success, You will get a './netbsd' file
+
+#+BEGIN_SRC
+ file ./netbsd
+ netbsd: ELF 32-bit LSB executable, MIPS, MIPS32 rel2 version 1 (SYSV), statically linked, for NetBSD 9.3, with debug_info, not stripped
+#+END_SRC
+
+run it:
+
+#+BEGIN_SRC shell
+ /path/to/qemu-build/qemu-system-mipsel -M mt7628 \
+			     -serial telnet:localhost:4000,server,nowait \
+			     -serial telnet:localhost:4001,server,nowait \
+			     -serial telnet:localhost:4002,server \
+			     -kernel ./netbsd
+#+END_SRC
+
+connect serial port, you will see netbsd bootup log:
+
+#+BEGIN_SRC shell
+  telnet localhost 4002
+  Trying ::1...
+  telnet: connect to address ::1: Connection refused
+  Trying 127.0.0.1...
+  Connected to localhost.
+  Escape character is '^]'.
+  [   1.0000000] MIPS32/64 params: cpu arch: 128
+  [   1.0000000] MIPS32/64 params: TLB entries: 16
+  [   1.0000000] MIPS32/64 params: Icache: line=16, total=2048, ways=2, sets=64, colors=0
+  [   1.0000000] MIPS32/64 params: Dcache: line=16, total=2048, ways=2, sets=64, colors=0
+  [   1.0000000] phys segment: 0x8000000 @ 0
+  [   1.0000000] adding 0xe000 @ 0x2000 to freelist 0
+  [   1.0000000] adding 0x797e000 @ 0x682000 to freelist 0
+  [   1.0000000] Enabled early console
+  [   1.0000000] Copyright (c) 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005,
+  [   1.0000000]     2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017,
+  [   1.0000000]     2018, 2019, 2020, 2021, 2022
+  [   1.0000000]     The NetBSD Foundation, Inc.  All rights reserved.
+  [   1.0000000] Copyright (c) 1982, 1986, 1989, 1991, 1993
+  [   1.0000000]     The Regents of the University of California.  All rights reserved.
+  [   1.0000000] NetBSD 9.3 (LINKITSMART7688) #0: Wed Mar 15 20:37:27 HKT 2023
+  [   1.0000000]  luhui@x230.luhui:/home/luhui/pub/netbsd/src/sys/arch/evbmips/compile/LINKITSMART7688
+  [   1.0000000] MT7628
+  [   1.0000000] total memory = 128 MB
+  [   1.0000000] avail memory = 120 MB
+  [   1.0000000] mainbus0 (root): Mediatek MT7628 System Bus
+  [   1.0000000] cpu0 at mainbus0: 580.00MHz (hz cycles = 2900000, delay divisor = 290)
+  [   1.0000000] cpu0: MIPS 24KE (0x19600) Rev. 0 with software emulated floating point
+#+END_SRC
+
 ** bootup plan9 kernel
 
 TODO

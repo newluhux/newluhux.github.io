@@ -25,9 +25,14 @@ why 0x9c000000, because mt7628 have a flash direct access memory at 0x1c000000
 
 0x9c000000 is KSEG0 mapping.
 
-ref: https://johnloomis.org/microchip/pic32/memory/memory.html
+ref:
+
+https://johnloomis.org/microchip/pic32/memory/memory.html
+
+https://s3-eu-west-1.amazonaws.com/downloads-mips/documents/MD00565-2B-MIPS32-QRC-01.01.pdf
 
 I guess mt7628 bootup process is:
+
 
 #+BEGIN_SRC
   BROM: do some thing.

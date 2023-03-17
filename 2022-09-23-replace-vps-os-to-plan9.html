@@ -3,39 +3,38 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-12-14 -->
+<!-- 2023-02-26 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
-<meta name="author" content="LuHui" />
-<meta name="generator" content="Org Mode" />
+<meta name="generator" content="Org mode" />
 </head>
 <body>
-<div id="content" class="content">
-<div id="outline-container-org26426cf" class="outline-2">
-<h2 id="org26426cf">use 9front replace vps&rsquo;s operating system</h2>
-<div class="outline-text-2" id="text-org26426cf">
+<div id="content">
+<div id="outline-container-orgaea5f0b" class="outline-2">
+<h2 id="orgaea5f0b">use 9front replace vps&rsquo;s operating system</h2>
+<div class="outline-text-2" id="text-orgaea5f0b">
 <p>
 You can test this blog on local virtual machine
 </p>
 </div>
 
-<div id="outline-container-orgf89d985" class="outline-3">
-<h3 id="orgf89d985">Need</h3>
-<div class="outline-text-3" id="text-orgf89d985">
+<div id="outline-container-orgc5ba4bc" class="outline-3">
+<h3 id="orgc5ba4bc">Need</h3>
+<div class="outline-text-3" id="text-orgc5ba4bc">
 </div>
-<div id="outline-container-orgc288a19" class="outline-4">
-<h4 id="orgc288a19">out-of-band management console</h4>
-<div class="outline-text-4" id="text-orgc288a19">
+<div id="outline-container-org2d2c1e3" class="outline-4">
+<h4 id="org2d2c1e3">out-of-band management console</h4>
+<div class="outline-text-4" id="text-org2d2c1e3">
 <p>
 Need a out-of-band management console to connect vps&rsquo;s screen
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgdaba6cc" class="outline-4">
-<h4 id="orgdaba6cc">kvm or bare metal</h4>
-<div class="outline-text-4" id="text-orgdaba6cc">
+<div id="outline-container-org42f8be8" class="outline-4">
+<h4 id="org42f8be8">kvm or bare metal</h4>
+<div class="outline-text-4" id="text-org42f8be8">
 <p>
 OpenVZ or other container technology not discussed here
 </p>
@@ -43,13 +42,13 @@ OpenVZ or other container technology not discussed here
 </div>
 </div>
 
-<div id="outline-container-org2e72bdd" class="outline-3">
-<h3 id="org2e72bdd">Stage 0 boot a linux in RAM</h3>
-<div class="outline-text-3" id="text-org2e72bdd">
+<div id="outline-container-orgc499fea" class="outline-3">
+<h3 id="orgc499fea">Stage 0 boot a linux in RAM</h3>
+<div class="outline-text-3" id="text-orgc499fea">
 </div>
-<div id="outline-container-org02bb100" class="outline-4">
-<h4 id="org02bb100">Download iPXE image</h4>
-<div class="outline-text-4" id="text-org02bb100">
+<div id="outline-container-org8ec9bd3" class="outline-4">
+<h4 id="org8ec9bd3">Download iPXE image</h4>
+<div class="outline-text-4" id="text-org8ec9bd3">
 <p>
 MBR:
 </p>
@@ -61,9 +60,9 @@ MBR:
 </div>
 </div>
 
-<div id="outline-container-org03976e7" class="outline-4">
-<h4 id="org03976e7">Write iPXE image to disk</h4>
-<div class="outline-text-4" id="text-org03976e7">
+<div id="outline-container-org7ae2b4f" class="outline-4">
+<h4 id="org7ae2b4f">Write iPXE image to disk</h4>
+<div class="outline-text-4" id="text-org7ae2b4f">
 <div class="org-src-container">
 <pre class="src src-shell"><code>sync # ensure data is sync to disk</code>
 <code>dd if=ipxe.usb of=/dev/vda conv=sync # write image to harddisk</code>
@@ -73,9 +72,9 @@ MBR:
 </div>
 </div>
 
-<div id="outline-container-org5bd1f0a" class="outline-4">
-<h4 id="org5bd1f0a">use iPXE boot a linux in RAM</h4>
-<div class="outline-text-4" id="text-org5bd1f0a">
+<div id="outline-container-orgd03693c" class="outline-4">
+<h4 id="orgd03693c">use iPXE boot a linux in RAM</h4>
+<div class="outline-text-4" id="text-orgd03693c">
 <p>
 now please connect vps&rsquo;s screen, use out-of-band management console
 </p>
@@ -154,13 +153,13 @@ note: if your dns not working, please use ip address instead domain name.
 </div>
 </div>
 
-<div id="outline-container-org7e69d8f" class="outline-3">
-<h3 id="org7e69d8f">Stage 1 download 9front image and write to disk</h3>
-<div class="outline-text-3" id="text-org7e69d8f">
+<div id="outline-container-orgcd84177" class="outline-3">
+<h3 id="orgcd84177">Stage 1 download 9front image and write to disk</h3>
+<div class="outline-text-3" id="text-orgcd84177">
 </div>
-<div id="outline-container-org8818a93" class="outline-4">
-<h4 id="org8818a93">Download 9front image</h4>
-<div class="outline-text-4" id="text-org8818a93">
+<div id="outline-container-org7523ad3" class="outline-4">
+<h4 id="org7523ad3">Download 9front image</h4>
+<div class="outline-text-4" id="text-org7523ad3">
 <p>
 use root login, then:
 </p>
@@ -173,9 +172,9 @@ use root login, then:
 </div>
 </div>
 
-<div id="outline-container-org29df933" class="outline-4">
-<h4 id="org29df933">write 9front image to disk</h4>
-<div class="outline-text-4" id="text-org29df933">
+<div id="outline-container-orgf7ff797" class="outline-4">
+<h4 id="orgf7ff797">write 9front image to disk</h4>
+<div class="outline-text-4" id="text-orgf7ff797">
 <div class="org-src-container">
 <pre class="src src-shell"><code>zcat 9front-&lt;version&gt;.amd64.iso.gz | dd bs=1M of=/dev/vda conv=sync # write</code>
 <code>sync # ensure sync to disk</code>
@@ -186,9 +185,9 @@ use root login, then:
 </div>
 </div>
 
-<div id="outline-container-orgbe17514" class="outline-3">
-<h3 id="orgbe17514">Stage 2 install 9front</h3>
-<div class="outline-text-3" id="text-orgbe17514">
+<div id="outline-container-org4d50de2" class="outline-3">
+<h3 id="org4d50de2">Stage 2 install 9front</h3>
+<div class="outline-text-3" id="text-org4d50de2">
 <p>
 now you can install 9front.
 </p>
@@ -198,18 +197,18 @@ but have some notice:
 </p>
 </div>
 
-<div id="outline-container-orgb8e5cfe" class="outline-4">
-<h4 id="orgb8e5cfe">configfs</h4>
-<div class="outline-text-4" id="text-orgb8e5cfe">
+<div id="outline-container-org8b9ac74" class="outline-4">
+<h4 id="org8b9ac74">configfs</h4>
+<div class="outline-text-4" id="text-org8b9ac74">
 <p>
 if vps&rsquo;s disk size is small , please use hjfs.
 </p>
 </div>
 </div>
 
-<div id="outline-container-orga679818" class="outline-4">
-<h4 id="orga679818">prepdisk</h4>
-<div class="outline-text-4" id="text-orga679818">
+<div id="outline-container-orgfd08d77" class="outline-4">
+<h4 id="orgfd08d77">prepdisk</h4>
+<div class="outline-text-4" id="text-orgfd08d77">
 <p>
 in prepdisk phases, you can&rsquo;t remove installation image&rsquo;s part.
 </p>
@@ -233,9 +232,9 @@ safe method is create a new part in space outside the installation image
 </div>
 </div>
 
-<div id="outline-container-orgddffd79" class="outline-3">
-<h3 id="orgddffd79">All is done</h3>
-<div class="outline-text-3" id="text-orgddffd79">
+<div id="outline-container-org58118e2" class="outline-3">
+<h3 id="org58118e2">All is done</h3>
+<div class="outline-text-3" id="text-org58118e2">
 <p>
 after installation, all is done, reboot your vps and use 9front!
 </p>
@@ -243,9 +242,9 @@ after installation, all is done, reboot your vps and use 9front!
 </div>
 
 
-<div id="outline-container-org8fc5928" class="outline-3">
-<h3 id="org8fc5928">References</h3>
-<div class="outline-text-3" id="text-org8fc5928">
+<div id="outline-container-orgfcd5552" class="outline-3">
+<h3 id="orgfcd5552">References</h3>
+<div class="outline-text-3" id="text-orgfcd5552">
 <p>
 <a href="http://boot.salstar.sk/">http://boot.salstar.sk/</a>
 </p>
@@ -258,7 +257,7 @@ after installation, all is done, reboot your vps and use 9front!
 </div>
 </div>
 <div id="postamble" class="status">
-<p>Last updated: 2022-12-14</p>
+<p>Last updated: 2023-02-25</p>
 </div>
 </body>
 </html>

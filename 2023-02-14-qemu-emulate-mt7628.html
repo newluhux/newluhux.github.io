@@ -3,22 +3,21 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-02-19 -->
+<!-- 2023-03-17 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
-<meta name="author" content="LuHui" />
-<meta name="generator" content="Org Mode" />
+<meta name="generator" content="Org mode" />
 </head>
 <body>
-<div id="content" class="content">
-<div id="outline-container-org1eac7ef" class="outline-2">
-<h2 id="org1eac7ef">qemu mt7628 emulation</h2>
-<div class="outline-text-2" id="text-org1eac7ef">
+<div id="content">
+<div id="outline-container-org2348c96" class="outline-2">
+<h2 id="org2348c96">qemu mt7628 emulation</h2>
+<div class="outline-text-2" id="text-org2348c96">
 </div>
-<div id="outline-container-org3adb7b6" class="outline-3">
-<h3 id="org3adb7b6">before using</h3>
-<div class="outline-text-3" id="text-org3adb7b6">
+<div id="outline-container-orgcf9681b" class="outline-3">
+<h3 id="orgcf9681b">before using</h3>
+<div class="outline-text-3" id="text-orgcf9681b">
 <p>
 I&rsquo;m add mt7628 support in qemu, some deivce is not working.
 </p>
@@ -29,9 +28,9 @@ you maybe need review source code.
 </div>
 </div>
 
-<div id="outline-container-org99cb17e" class="outline-3">
-<h3 id="org99cb17e">build qemu with patch</h3>
-<div class="outline-text-3" id="text-org99cb17e">
+<div id="outline-container-org4a70f52" class="outline-3">
+<h3 id="org4a70f52">build qemu with patch</h3>
+<div class="outline-text-3" id="text-org4a70f52">
 <div class="org-src-container">
 <pre class="src src-shell"><code>git clone https://gitlab.com/qemu-project/qemu</code>
 <code>git clone https://github.com/newluhux/qemu-mt7628</code>
@@ -50,9 +49,9 @@ you maybe need review source code.
 </div>
 </div>
 
-<div id="outline-container-org3902a94" class="outline-3">
-<h3 id="org3902a94">bootup mainline uboot</h3>
-<div class="outline-text-3" id="text-org3902a94">
+<div id="outline-container-org6f148e9" class="outline-3">
+<h3 id="org6f148e9">bootup mainline uboot</h3>
+<div class="outline-text-3" id="text-org6f148e9">
 <div class="org-src-container">
 <pre class="src src-shell"><code>wget http://musl.cc/mipsel-linux-muslsf-cross.tgz</code>
 <code>tar xf mipsel-linux-muslsf-cross.tgz</code>
@@ -119,27 +118,120 @@ after image load, use &rsquo;bootm&rsquo; bootup it.
 </div>
 </div>
 
-<div id="outline-container-orgb38aa4d" class="outline-3">
-<h3 id="orgb38aa4d">bootup mainline linux kernel</h3>
-<div class="outline-text-3" id="text-orgb38aa4d">
+<div id="outline-container-org7bc1bb4" class="outline-3">
+<h3 id="org7bc1bb4">bootup mainline linux kernel</h3>
+<div class="outline-text-3" id="text-org7bc1bb4">
 <p>
 TODO
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgc6d6f5a" class="outline-3">
-<h3 id="orgc6d6f5a">bootup plan9 kernel</h3>
-<div class="outline-text-3" id="text-orgc6d6f5a">
+<div id="outline-container-org6ff228e" class="outline-3">
+<h3 id="org6ff228e">bootup mainline NetBSD kernel</h3>
+<div class="outline-text-3" id="text-org6ff228e">
+<p>
+ref: <a href="https://www.netbsd.org/docs/guide/en/chap-build.html">https://www.netbsd.org/docs/guide/en/chap-build.html</a>
+</p>
+
+<p>
+NetBSD have mt7628 support after NetBSD 8.0
+</p>
+
+<p>
+You can use Linux / NetBSD / Other OS cross build a NetBSD
+</p>
+
+<p>
+build NetBSD kernel is easy (on my slackware linux machine):
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell"><code>mkdir ./netbsd/</code>
+<code>cd ./netbsd/</code>
+<code>wget https://ftp.NetBSD.org/pub/NetBSD/NetBSD-release-9/tar_files/src.tar.gz</code>
+<code>cd ./src/</code>
+<code>./build.sh -U -O ~/obj -j$(nproc) -m evbmips -a mipsel tools</code>
+<code>cd sys/arch/evbmips/conf/</code>
+<code>~/obj/tooldir.HOST/bin/nbconfig LINKITSMART7688</code>
+<code>cd ../compile/LINKITSMART7688/</code>
+<code>~/obj/tooldir.HOST/bin/nbmake-evbmips depend</code>
+<code>~/obj/tooldir.HOST/bin/nbmake-evbmips</code>
+</pre>
+</div>
+
+<p>
+if it success, You will get a &rsquo;./netbsd&rsquo; file
+</p>
+
+<pre class="example">
+<code>file ./netbsd</code>
+<code>netbsd: ELF 32-bit LSB executable, MIPS, MIPS32 rel2 version 1 (SYSV), statically linked, for NetBSD 9.3, with debug_info, not stripped</code>
+</pre>
+
+<p>
+run it:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell"><code>/path/to/qemu-build/qemu-system-mipsel -M mt7628 \</code>
+<code>			    -serial telnet:localhost:4000,server,nowait \</code>
+<code>			    -serial telnet:localhost:4001,server,nowait \</code>
+<code>			    -serial telnet:localhost:4002,server \</code>
+<code>			    -kernel ./netbsd</code>
+</pre>
+</div>
+
+<p>
+connect serial port, you will see netbsd bootup log:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell"><code>telnet localhost 4002</code>
+<code>Trying ::1...</code>
+<code>telnet: connect to address ::1: Connection refused</code>
+<code>Trying 127.0.0.1...</code>
+<code>Connected to localhost.</code>
+<code>Escape character is '^]'.</code>
+<code>[   1.0000000] MIPS32/64 params: cpu arch: 128</code>
+<code>[   1.0000000] MIPS32/64 params: TLB entries: 16</code>
+<code>[   1.0000000] MIPS32/64 params: Icache: line=16, total=2048, ways=2, sets=64, colors=0</code>
+<code>[   1.0000000] MIPS32/64 params: Dcache: line=16, total=2048, ways=2, sets=64, colors=0</code>
+<code>[   1.0000000] phys segment: 0x8000000 @ 0</code>
+<code>[   1.0000000] adding 0xe000 @ 0x2000 to freelist 0</code>
+<code>[   1.0000000] adding 0x797e000 @ 0x682000 to freelist 0</code>
+<code>[   1.0000000] Enabled early console</code>
+<code>[   1.0000000] Copyright (c) 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005,</code>
+<code>[   1.0000000]     2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017,</code>
+<code>[   1.0000000]     2018, 2019, 2020, 2021, 2022</code>
+<code>[   1.0000000]     The NetBSD Foundation, Inc.  All rights reserved.</code>
+<code>[   1.0000000] Copyright (c) 1982, 1986, 1989, 1991, 1993</code>
+<code>[   1.0000000]     The Regents of the University of California.  All rights reserved.</code>
+<code>[   1.0000000] NetBSD 9.3 (LINKITSMART7688) #0: Wed Mar 15 20:37:27 HKT 2023</code>
+<code>[   1.0000000]  luhui@x230.luhui:/home/luhui/pub/netbsd/src/sys/arch/evbmips/compile/LINKITSMART7688</code>
+<code>[   1.0000000] MT7628</code>
+<code>[   1.0000000] total memory = 128 MB</code>
+<code>[   1.0000000] avail memory = 120 MB</code>
+<code>[   1.0000000] mainbus0 (root): Mediatek MT7628 System Bus</code>
+<code>[   1.0000000] cpu0 at mainbus0: 580.00MHz (hz cycles = 2900000, delay divisor = 290)</code>
+<code>[   1.0000000] cpu0: MIPS 24KE (0x19600) Rev. 0 with software emulated floating point</code>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org9fd9f4c" class="outline-3">
+<h3 id="org9fd9f4c">bootup plan9 kernel</h3>
+<div class="outline-text-3" id="text-org9fd9f4c">
 <p>
 TODO
 </p>
 </div>
 </div>
 
-<div id="outline-container-org43137d8" class="outline-3">
-<h3 id="org43137d8">bootup from flash image</h3>
-<div class="outline-text-3" id="text-org43137d8">
+<div id="outline-container-orgdc9883f" class="outline-3">
+<h3 id="orgdc9883f">bootup from flash image</h3>
+<div class="outline-text-3" id="text-orgdc9883f">
 <p>
 Now, you can bootup from flash.
 </p>
@@ -166,7 +258,7 @@ You need dump flash image from real mt7628 board, then:
 </div>
 </div>
 <div id="postamble" class="status">
-<p>Last updated: 2023-02-19</p>
+<p>Last updated: 2023-03-17</p>
 </div>
 </body>
 </html>
