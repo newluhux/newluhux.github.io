@@ -80,6 +80,55 @@ you also can write firmware to spi nor flash use 'sf' command.
 
 after image load, use 'bootm' bootup it.
 
+** bootup openwrt firmware
+
+you need build a mainline uboot for mt7628 soc.
+
+#+BEGIN_SRC shell
+  cp /path/to/uboot/uboot.elf ./uboot.elf
+  wget https://downloads.openwrt.org/releases/22.03.3/targets/ramips/mt76x8/openwrt-22.03.3-ramips-mt76x8-vocore_vocore2-squashfs-sysupgrade.bin
+  dd if=/path/to/uboot/uboot-with-spl.bin of=flash.bin
+  dd if=/dev/zero bs=1M count=1 >> flash.bin
+  truncate -s 327680 flash.bin
+  dd if=./openwrt-22.03.3-ramips-mt76x8-vocore_vocore2-squashfs-sysupgrade.bin >> flash.bin
+  dd if=/dev/zero bs=1M count=16 >> flash.bin
+  truncate -s 16M flash.bin
+  /path/to/qemu-build/qemu-system-mipsel -M mt7628 \
+			     -serial telnet:localhost:4000,server,nowait \
+			     -serial telnet:localhost:4001,server,nowait \
+			     -serial telnet:localhost:4002,server \
+			     -kernel ./uboot.elf \
+			     -drive if=mtd,file=flash_16M.bin,type=raw \
+			     -usb
+#+END_SRC
+
+telnet to localhost:4002, you will get uboot prompt:
+
+#+BEGIN_SRC
+$ telnet localhost 4002
+Trying 127.0.0.1...
+Connected to 127.0.0.1.
+Escape character is '^]'.
+
+
+U-Boot 2022.04 (Feb 14 2023 - 15:32:34 +0000)
+
+CPU:   MediaTek MT7628A ver:1 eco:2
+Boot:  DDR2, SPI-NOR 3-Byte Addr, CPU clock from XTAL
+Clock: CPU: 575MHz, Bus: 191MHz, XTAL: 25MHz
+Model: LinkIt-Smart-7688
+DRAM:  256 MiB
+Core:  54 devices, 15 uclasses, devicetree: separate
+Loading Environment from SPIFlash... SF: Detected w25q128 with page size 256 Bytes, erase size 4 KiB, total 16 MiB
+
+Net:   
+Warning: eth@10110000 (eth0) using random MAC address - 96:0d:9e:0d:3f:ea
+eth0: eth@10110000
+=>
+#+END_SRC
+
+use command 'bootm 0x1c050000' bootup openwrt.
+
 ** bootup mainline linux kernel
 
 TODO

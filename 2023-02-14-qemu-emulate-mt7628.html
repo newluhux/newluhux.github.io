@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-03-17 -->
+<!-- 2023-03-31 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
@@ -114,6 +114,65 @@ you also can write firmware to spi nor flash use &rsquo;sf&rsquo; command.
 
 <p>
 after image load, use &rsquo;bootm&rsquo; bootup it.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgaaa7116" class="outline-3">
+<h3 id="orgaaa7116">bootup openwrt firmware</h3>
+<div class="outline-text-3" id="text-orgaaa7116">
+<p>
+you need build a mainline uboot for mt7628 soc.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell"><code>cp /path/to/uboot/uboot.elf ./uboot.elf</code>
+<code>wget https://downloads.openwrt.org/releases/22.03.3/targets/ramips/mt76x8/openwrt-22.03.3-ramips-mt76x8-vocore_vocore2-squashfs-sysupgrade.bin</code>
+<code>dd if=/path/to/uboot/uboot-with-spl.bin of=flash.bin</code>
+<code>dd if=/dev/zero bs=1M count=1 &gt;&gt; flash.bin</code>
+<code>truncate -s 327680 flash.bin</code>
+<code>dd if=./openwrt-22.03.3-ramips-mt76x8-vocore_vocore2-squashfs-sysupgrade.bin &gt;&gt; flash.bin</code>
+<code>dd if=/dev/zero bs=1M count=16 &gt;&gt; flash.bin</code>
+<code>truncate -s 16M flash.bin</code>
+<code>/path/to/qemu-build/qemu-system-mipsel -M mt7628 \</code>
+<code>			   -serial telnet:localhost:4000,server,nowait \</code>
+<code>			   -serial telnet:localhost:4001,server,nowait \</code>
+<code>			   -serial telnet:localhost:4002,server \</code>
+<code>			   -kernel ./uboot.elf \</code>
+<code>			   -drive if=mtd,file=flash_16M.bin,type=raw \</code>
+<code>			   -usb</code>
+</pre>
+</div>
+
+<p>
+telnet to localhost:4002, you will get uboot prompt:
+</p>
+
+<pre class="example">
+<code>$ telnet localhost 4002</code>
+<code>Trying 127.0.0.1...</code>
+<code>Connected to 127.0.0.1.</code>
+<code>Escape character is '^]'.</code>
+<code></code>
+<code></code>
+<code>U-Boot 2022.04 (Feb 14 2023 - 15:32:34 +0000)</code>
+<code></code>
+<code>CPU:   MediaTek MT7628A ver:1 eco:2</code>
+<code>Boot:  DDR2, SPI-NOR 3-Byte Addr, CPU clock from XTAL</code>
+<code>Clock: CPU: 575MHz, Bus: 191MHz, XTAL: 25MHz</code>
+<code>Model: LinkIt-Smart-7688</code>
+<code>DRAM:  256 MiB</code>
+<code>Core:  54 devices, 15 uclasses, devicetree: separate</code>
+<code>Loading Environment from SPIFlash... SF: Detected w25q128 with page size 256 Bytes, erase size 4 KiB, total 16 MiB</code>
+<code></code>
+<code>Net:   </code>
+<code>Warning: eth@10110000 (eth0) using random MAC address - 96:0d:9e:0d:3f:ea</code>
+<code>eth0: eth@10110000</code>
+<code>=&gt;</code>
+</pre>
+
+<p>
+use command &rsquo;bootm 0x1c050000&rsquo; bootup openwrt.
 </p>
 </div>
 </div>
@@ -259,7 +318,7 @@ You need dump flash image from real mt7628 board, then:
 </div>
 </div>
 <div id="postamble" class="status">
-<p>Last updated: 2023-03-17</p>
+<p>Last updated: 2023-03-31</p>
 </div>
 </body>
 </html>
