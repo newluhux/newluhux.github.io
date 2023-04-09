@@ -3,30 +3,30 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-02-26 -->
+<!-- 2023-04-09 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
-<meta name="generator" content="Org mode" />
+<meta name="generator" content="Org Mode" />
 </head>
 <body>
-<div id="content">
-<div id="outline-container-orga71fdb1" class="outline-2">
-<h2 id="orga71fdb1">simple way make linux livecd</h2>
-<div class="outline-text-2" id="text-orga71fdb1">
+<div id="content" class="content">
+<div id="outline-container-org4ac62aa" class="outline-2">
+<h2 id="org4ac62aa">simple way make linux livecd</h2>
+<div class="outline-text-2" id="text-org4ac62aa">
 </div>
-<div id="outline-container-org56d9c66" class="outline-3">
-<h3 id="org56d9c66">use GNU Guix</h3>
-<div class="outline-text-3" id="text-org56d9c66">
+<div id="outline-container-org1eecb42" class="outline-3">
+<h3 id="org1eecb42">use GNU Guix</h3>
+<div class="outline-text-3" id="text-org1eecb42">
 <p>
 GNU Guix can define whole system use scheme lisp.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org3521bbd" class="outline-3">
-<h3 id="org3521bbd">make a simple config.scm</h3>
-<div class="outline-text-3" id="text-org3521bbd">
+<div id="outline-container-org32ec19b" class="outline-3">
+<h3 id="org32ec19b">make a simple config.scm</h3>
+<div class="outline-text-3" id="text-org32ec19b">
 <p>
 file config.scm:
 </p>
@@ -71,9 +71,9 @@ file config.scm:
 </div>
 </div>
 
-<div id="outline-container-org6e7fd86" class="outline-3">
-<h3 id="org6e7fd86">add your packages</h3>
-<div class="outline-text-3" id="text-org6e7fd86">
+<div id="outline-container-orge7fac17" class="outline-3">
+<h3 id="orge7fac17">add your packages</h3>
+<div class="outline-text-3" id="text-orge7fac17">
 <div class="org-src-container">
 <pre class="src src-diff"><code>diff --git a/config.scm b/config.scm</code>
 <code>index 0d7a449..f8eadab 100644</code>
@@ -106,9 +106,9 @@ file config.scm:
 </div>
 </div>
 
-<div id="outline-container-orge49a376" class="outline-3">
-<h3 id="orge49a376">add your services</h3>
-<div class="outline-text-3" id="text-orge49a376">
+<div id="outline-container-org6fd45b7" class="outline-3">
+<h3 id="org6fd45b7">add your services</h3>
+<div class="outline-text-3" id="text-org6fd45b7">
 <div class="org-src-container">
 <pre class="src src-diff"><code>diff --git a/config.scm b/config.scm</code>
 <code>index f8eadab..480a9bb 100644</code>
@@ -136,9 +136,9 @@ file config.scm:
 </div>
 </div>
 
-<div id="outline-container-org5ac0c88" class="outline-3">
-<h3 id="org5ac0c88">add your home config file</h3>
-<div class="outline-text-3" id="text-org5ac0c88">
+<div id="outline-container-org5870d1d" class="outline-3">
+<h3 id="org5870d1d">add your home config file</h3>
+<div class="outline-text-3" id="text-org5870d1d">
 <p>
 you can define your home config file in skel:
 </p>
@@ -171,9 +171,9 @@ you can define your home config file in skel:
 </div>
 </div>
 
-<div id="outline-container-org2344161" class="outline-3">
-<h3 id="org2344161">add your data file</h3>
-<div class="outline-text-3" id="text-org2344161">
+<div id="outline-container-org3150cbb" class="outline-3">
+<h3 id="org3150cbb">add your data file</h3>
+<div class="outline-text-3" id="text-org3150cbb">
 <p>
 copy your data file:
 </p>
@@ -207,9 +207,9 @@ copy your data file:
 </div>
 </div>
 
-<div id="outline-container-orgaec76d3" class="outline-3">
-<h3 id="orgaec76d3">test your config</h3>
-<div class="outline-text-3" id="text-orgaec76d3">
+<div id="outline-container-org0855377" class="outline-3">
+<h3 id="org0855377">test your config</h3>
+<div class="outline-text-3" id="text-org0855377">
 <p>
 boot up a virtual machine, use qemu.
 </p>
@@ -221,9 +221,9 @@ boot up a virtual machine, use qemu.
 </div>
 </div>
 
-<div id="outline-container-org5212107" class="outline-3">
-<h3 id="org5212107">make bootable image</h3>
-<div class="outline-text-3" id="text-org5212107">
+<div id="outline-container-org9ed7882" class="outline-3">
+<h3 id="org9ed7882">make bootable image</h3>
+<div class="outline-text-3" id="text-org9ed7882">
 <p>
 bootable disk image, use ext4 file system for root.
 </p>
@@ -262,9 +262,9 @@ more format:
 </div>
 </div>
 
-<div id="outline-container-orgd6fa8a4" class="outline-3">
-<h3 id="orgd6fa8a4">need more?</h3>
-<div class="outline-text-3" id="text-orgd6fa8a4">
+<div id="outline-container-org77f6421" class="outline-3">
+<h3 id="org77f6421">need more?</h3>
+<div class="outline-text-3" id="text-org77f6421">
 <div class="org-src-container">
 <pre class="src src-shell"><code>info guix</code>
 </pre>
@@ -282,7 +282,7 @@ or
 </div>
 </div>
 <div id="postamble" class="status">
-<p>Last updated: 2023-02-25</p>
+<p>Last updated: 2023-04-02</p>
 </div>
 </body>
 </html>

@@ -1,0 +1,14 @@
+* bl808 note
+
+** c906 jtag
+
+simple enable c906 jtag in uboot:
+
+#+BEGIN_SRC shell
+  rproc start 0
+  mw 0x200008C4 0x80401B03
+  mw 0x200008C8 0x80401B03
+  mw 0x200008CC 0x80401B03
+  mw 0x200008D0 0x80401B03
+#+END_SRC
+
