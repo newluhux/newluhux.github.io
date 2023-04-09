@@ -1,14 +1,17 @@
 * bl808 note
 
-** c906 jtag
+for sipeed m1s
 
-simple enable c906 jtag in uboot:
+** d0 jtag
+
+simple enable d0 jtag in uboot:
 
 #+BEGIN_SRC shell
+  # bootup d0
   rproc start 0
+  # config gpio use for jtag d0
   mw 0x200008C4 0x80401B03
   mw 0x200008C8 0x80401B03
   mw 0x200008CC 0x80401B03
   mw 0x200008D0 0x80401B03
 #+END_SRC
-
