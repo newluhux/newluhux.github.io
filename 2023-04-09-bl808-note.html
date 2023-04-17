@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-04-09 -->
+<!-- 2023-04-10 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
@@ -15,38 +15,25 @@
 <h2 id="org0fd7fb0">bl808 note</h2>
 <div class="outline-text-2" id="text-org0fd7fb0">
 <p>
-test on sipeed m1s
+for sipeed m1s
 </p>
 </div>
 
-<div id="outline-container-orge627a6c" class="outline-3">
-<h3 id="orge627a6c">c906 jtag</h3>
-<div class="outline-text-3" id="text-orge627a6c">
+<div id="outline-container-orgf0bd230" class="outline-3">
+<h3 id="orgf0bd230">d0 jtag</h3>
+<div class="outline-text-3" id="text-orgf0bd230">
 <p>
-simple enable c906 jtag in uboot:
+simple enable d0 jtag in uboot:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-shell"><code>rproc start 0</code>
+<pre class="src src-shell"><code># bootup d0</code>
+<code>rproc start 0</code>
+<code># config gpio use for jtag d0</code>
 <code>mw 0x200008C4 0x80401B03</code>
 <code>mw 0x200008C8 0x80401B03</code>
 <code>mw 0x200008CC 0x80401B03</code>
 <code>mw 0x200008D0 0x80401B03</code>
-</pre>
-</div>
-</div>
-</div>
-
-
-<div id="outline-container-org606a9d8" class="outline-3">
-<h3 id="org606a9d8">e907 jtag</h3>
-<div class="outline-text-3" id="text-org606a9d8">
-<p>
-simple enable e907 jtag in uboot:
-</p>
-
-<div class="org-src-container">
-<pre class="src src-shell"><code></code>
 </pre>
 </div>
 </div>
