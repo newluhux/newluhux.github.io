@@ -3,21 +3,22 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-04-09 -->
+<!-- 2023-04-19 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
+<meta name="author" content="Lu Hui" />
 <meta name="generator" content="Org Mode" />
 </head>
 <body>
 <div id="content" class="content">
-<div id="outline-container-org5c96d58" class="outline-2">
-<h2 id="org5c96d58">linux textui programming</h2>
-<div class="outline-text-2" id="text-org5c96d58">
+<div id="outline-container-orgdb84de6" class="outline-2">
+<h2 id="orgdb84de6">linux textui programming</h2>
+<div class="outline-text-2" id="text-orgdb84de6">
 </div>
-<div id="outline-container-orgb797a84" class="outline-3">
-<h3 id="orgb797a84">setup terminal input and output</h3>
-<div class="outline-text-3" id="text-orgb797a84">
+<div id="outline-container-org3334863" class="outline-3">
+<h3 id="org3334863">setup terminal input and output</h3>
+<div class="outline-text-3" id="text-org3334863">
 <div class="org-src-container">
 <pre class="src src-c"><code>int ttyfd = open("/dev/tty", O_RDWR);</code>
 <code>struct termios termattr;</code>
@@ -35,9 +36,9 @@
 </div>
 </div>
 
-<div id="outline-container-org0c28754" class="outline-3">
-<h3 id="org0c28754">move cursor</h3>
-<div class="outline-text-3" id="text-org0c28754">
+<div id="outline-container-org198d0a0" class="outline-3">
+<h3 id="org198d0a0">move cursor</h3>
+<div class="outline-text-3" id="text-org198d0a0">
 <p>
 you can use termcap to control terminal:
 </p>
@@ -72,9 +73,9 @@ move cursor to 2, 5:
 </div>
 </div>
 
-<div id="outline-container-org66b62fb" class="outline-3">
-<h3 id="org66b62fb">clear screen</h3>
-<div class="outline-text-3" id="text-org66b62fb">
+<div id="outline-container-org105fad9" class="outline-3">
+<h3 id="org105fad9">clear screen</h3>
+<div class="outline-text-3" id="text-org105fad9">
 <div class="org-src-container">
 <pre class="src src-c"><code>// from: busybox editors/vi.c</code>
 <code>// Clear-to-end-of-screen.</code>
@@ -107,9 +108,9 @@ make screen blank:
 </div>
 </div>
 
-<div id="outline-container-orgcf7d9c4" class="outline-3">
-<h3 id="orgcf7d9c4">draw a string</h3>
-<div class="outline-text-3" id="text-orgcf7d9c4">
+<div id="outline-container-org9ae5de7" class="outline-3">
+<h3 id="org9ae5de7">draw a string</h3>
+<div class="outline-text-3" id="text-org9ae5de7">
 <p>
 it will draw &ldquo;Hello World&rdquo; on 4, 5
 </p>
@@ -123,9 +124,9 @@ it will draw &ldquo;Hello World&rdquo; on 4, 5
 </div>
 </div>
 
-<div id="outline-container-org790420b" class="outline-3">
-<h3 id="org790420b">erase a string</h3>
-<div class="outline-text-3" id="text-org790420b">
+<div id="outline-container-orgdef3a71" class="outline-3">
+<h3 id="orgdef3a71">erase a string</h3>
+<div class="outline-text-3" id="text-orgdef3a71">
 <p>
 erase a string is also simple:
 </p>
@@ -143,9 +144,9 @@ it will clean &ldquo;Hello World&rdquo; on 4, 5 (just fill space)
 </div>
 </div>
 
-<div id="outline-container-orgc8c183b" class="outline-3">
-<h3 id="orgc8c183b">get a char from input</h3>
-<div class="outline-text-3" id="text-orgc8c183b">
+<div id="outline-container-orgd51e86f" class="outline-3">
+<h3 id="orgd51e86f">get a char from input</h3>
+<div class="outline-text-3" id="text-orgd51e86f">
 <p>
 after setup terminal, getchar() is like getch();
 </p>
@@ -165,9 +166,9 @@ after setup terminal, getchar() is like getch();
 </div>
 </div>
 
-<div id="outline-container-org281b2c2" class="outline-3">
-<h3 id="org281b2c2">get terminal size</h3>
-<div class="outline-text-3" id="text-org281b2c2">
+<div id="outline-container-org3d6c347" class="outline-3">
+<h3 id="org3d6c347">get terminal size</h3>
+<div class="outline-text-3" id="text-org3d6c347">
 <div class="org-src-container">
 <pre class="src src-c"><code>struct winsize wsz;</code>
 <code>ioctl(ttyfd, TIOCGWINSZ, &amp;wsz);</code>
@@ -179,7 +180,7 @@ after setup terminal, getchar() is like getch();
 </div>
 </div>
 <div id="postamble" class="status">
-<p>Last updated: 2023-04-02</p>
+<p>Last updated: 2023-04-18</p>
 </div>
 </body>
 </html>

@@ -10,36 +10,19 @@ so I use docker and singularity to make it work
 
 ** process
 
-#+BEGIN_SRC text
-  mkdir crosswork && cd crosswork
-	|
-	v
-  touch Dockerfile && $EDITOR Dockerfile
-	|
-	v
+#+BEGIN_SRC shell
+  mkdir crosswork
+  cd crosswork
+  touch Dockerfile
+  $EDITOR Dockerfile
   sudo docker build -t crosswork .
-	|
-	v
   sudo docker run --name crosswork crosswork /bin/sh
-	|
-	v
   sudo docker export crosswork -o crosswork.tar
-	|
-	| # note: because docker need create user by your hand, it's insecure.
-	| # note: use singularity instead docker to run container
-	v
   sqfstar crosswork.squashfs < crosswork.tar
-	|
-	v
-  singularity shell -e crosswork.squashfs
-	|
-	v
-       bash
-	|
-	v
-  cd path/to/openwrt-src/
-	|
-	v
-  # now you can compile openwrt, start your work!
+  singularity shel -e crosswork.squashfs
+  bash
+  cd path/to/buildroot/
+  make menuconfig
+  make
 #+END_SRC
 

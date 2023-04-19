@@ -3,17 +3,18 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-04-09 -->
+<!-- 2023-04-19 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
+<meta name="author" content="Lu Hui" />
 <meta name="generator" content="Org Mode" />
 </head>
 <body>
 <div id="content" class="content">
-<div id="outline-container-orgb2972cb" class="outline-2">
-<h2 id="orgb2972cb">build a FHS container</h2>
-<div class="outline-text-2" id="text-orgb2972cb">
+<div id="outline-container-orgb31e8bc" class="outline-2">
+<h2 id="orgb31e8bc">build a FHS container</h2>
+<div class="outline-text-2" id="text-orgb31e8bc">
 <p>
 I&rsquo;m using GNU Guix System on my computer
 </p>
@@ -31,40 +32,23 @@ so I use docker and singularity to make it work
 </p>
 </div>
 
-<div id="outline-container-orgb8ba4b5" class="outline-3">
-<h3 id="orgb8ba4b5">process</h3>
-<div class="outline-text-3" id="text-orgb8ba4b5">
+<div id="outline-container-orgcb1db90" class="outline-3">
+<h3 id="orgcb1db90">process</h3>
+<div class="outline-text-3" id="text-orgcb1db90">
 <div class="org-src-container">
-<pre class="src src-text"><code>mkdir crosswork &amp;&amp; cd crosswork</code>
-<code>      |</code>
-<code>      v</code>
-<code>touch Dockerfile &amp;&amp; $EDITOR Dockerfile</code>
-<code>      |</code>
-<code>      v</code>
+<pre class="src src-shell"><code>mkdir crosswork</code>
+<code>cd crosswork</code>
+<code>touch Dockerfile</code>
+<code>$EDITOR Dockerfile</code>
 <code>sudo docker build -t crosswork .</code>
-<code>      |</code>
-<code>      v</code>
 <code>sudo docker run --name crosswork crosswork /bin/sh</code>
-<code>      |</code>
-<code>      v</code>
 <code>sudo docker export crosswork -o crosswork.tar</code>
-<code>      |</code>
-<code>      | # note: because docker need create user by your hand, it's insecure.</code>
-<code>      | # note: use singularity instead docker to run container</code>
-<code>      v</code>
 <code>sqfstar crosswork.squashfs &lt; crosswork.tar</code>
-<code>      |</code>
-<code>      v</code>
-<code>singularity shell -e crosswork.squashfs</code>
-<code>      |</code>
-<code>      v</code>
-<code>     bash</code>
-<code>      |</code>
-<code>      v</code>
-<code>cd path/to/openwrt-src/</code>
-<code>      |</code>
-<code>      v</code>
-<code># now you can compile openwrt, start your work!</code>
+<code>singularity shel -e crosswork.squashfs</code>
+<code>bash</code>
+<code>cd path/to/buildroot/</code>
+<code>make menuconfig</code>
+<code>make</code>
 </pre>
 </div>
 </div>
@@ -72,7 +56,7 @@ so I use docker and singularity to make it work
 </div>
 </div>
 <div id="postamble" class="status">
-<p>Last updated: 2023-04-02</p>
+<p>Last updated: 2023-04-19</p>
 </div>
 </body>
 </html>
