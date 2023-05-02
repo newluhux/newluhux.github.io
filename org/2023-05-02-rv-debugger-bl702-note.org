@@ -9,11 +9,13 @@ https://tang.sipeed.com/en/hardware-overview/rv-debugger/
 use riscv64-unknown-elf on guix or other distro:
 
 prebuild toolchain: https://github.com/newluhux/guix-config/releases/tag/2023.05.02
+
 guix: https://github.com/newluhux/guix-config/blob/master/packages/embedded.scm#L396
 
 opensource download tool
 
 source: https://github.com/pine64/blisp
+
 guix: https://github.com/newluhux/guix-config/blob/master/packages/embedded.scm#L575
 
 ** firmware for UART & JTAG
