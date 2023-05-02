@@ -22,6 +22,8 @@ Slackware Linux / Guix System / C / Rust / Embedded system
 
 * Posts
 
+[[file:2023-05-02-rv-debugger-bl702-note.org]]
+
 [[file:2023-04-09-bl808-note.org]]
 
 [[file:2023-02-16-mt7628-uboot-spl.org]]

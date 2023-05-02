@@ -1,0 +1,31 @@
+* rv debugger bl702 note
+
+** board
+
+https://tang.sipeed.com/en/hardware-overview/rv-debugger/
+
+** toolchain & download tool
+
+use riscv64-unknown-elf on guix or other distro:
+
+prebuild toolchain: https://github.com/newluhux/guix-config/releases/tag/2023.05.02
+guix: https://github.com/newluhux/guix-config/blob/master/packages/embedded.scm#L396
+
+opensource download tool
+
+source: https://github.com/pine64/blisp
+guix: https://github.com/newluhux/guix-config/blob/master/packages/embedded.scm#L575
+
+** firmware for UART & JTAG
+
+https://github.com/sipeed/RV-Debugger-BL702
+
+#+BEGIN_SRC shell
+  git clone https://github.com/sipeed/RV-Debugger-BL702
+  cd RV-Debugger-BL702
+  git submodule update
+  cd firware/bl_mcu_sdk/
+  make clean
+  make BOARD=bl702_debugger APP_DIR=../app APP=usb2uartjtag
+  blisp write -c bl70x -p /dev/ttyACM0 ./out/app/usb2uartjtag/usb2uartjtag_bl702.bin
+#+END_SRC

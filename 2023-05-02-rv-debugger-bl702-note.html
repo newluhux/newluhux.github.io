@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-05-02 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>&lrm;</title>
+<meta name="author" content="Lu Hui" />
+<meta name="generator" content="Org Mode" />
+</head>
+<body>
+<div id="content" class="content">
+<div id="outline-container-orgbec4799" class="outline-2">
+<h2 id="orgbec4799">rv debugger bl702 note</h2>
+<div class="outline-text-2" id="text-orgbec4799">
+</div>
+<div id="outline-container-orgcf362e6" class="outline-3">
+<h3 id="orgcf362e6">board</h3>
+<div class="outline-text-3" id="text-orgcf362e6">
+<p>
+<a href="https://tang.sipeed.com/en/hardware-overview/rv-debugger/">https://tang.sipeed.com/en/hardware-overview/rv-debugger/</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org65599cb" class="outline-3">
+<h3 id="org65599cb">toolchain &amp; download tool</h3>
+<div class="outline-text-3" id="text-org65599cb">
+<p>
+use riscv64-unknown-elf on guix or other distro:
+</p>
+
+<p>
+prebuild toolchain: <a href="https://github.com/newluhux/guix-config/releases/tag/2023.05.02">https://github.com/newluhux/guix-config/releases/tag/2023.05.02</a>
+guix: <a href="https://github.com/newluhux/guix-config/blob/master/packages/embedded.scm#L396">https://github.com/newluhux/guix-config/blob/master/packages/embedded.scm#L396</a>
+</p>
+
+<p>
+opensource download tool
+</p>
+
+<p>
+source: <a href="https://github.com/pine64/blisp">https://github.com/pine64/blisp</a>
+guix: <a href="https://github.com/newluhux/guix-config/blob/master/packages/embedded.scm#L575">https://github.com/newluhux/guix-config/blob/master/packages/embedded.scm#L575</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org176e049" class="outline-3">
+<h3 id="org176e049">firmware for UART &amp; JTAG</h3>
+<div class="outline-text-3" id="text-org176e049">
+<p>
+<a href="https://github.com/sipeed/RV-Debugger-BL702">https://github.com/sipeed/RV-Debugger-BL702</a>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell"><code>git clone https://github.com/sipeed/RV-Debugger-BL702</code>
+<code>cd RV-Debugger-BL702</code>
+<code>git submodule update</code>
+<code>cd firware/bl_mcu_sdk/</code>
+<code>make clean</code>
+<code>make BOARD=bl702_debugger APP_DIR=../app APP=usb2uartjtag</code>
+<code>blisp write -c bl70x -p /dev/ttyACM0 ./out/app/usb2uartjtag/usb2uartjtag_bl702.bin</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p>Last updated: 2023-05-02</p>
+</div>
+</body>
+</html>
