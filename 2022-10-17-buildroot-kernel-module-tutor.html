@@ -3,22 +3,21 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-04-19 -->
+<!-- 2023-05-14 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
-<meta name="author" content="Lu Hui" />
 <meta name="generator" content="Org Mode" />
 </head>
 <body>
 <div id="content" class="content">
-<div id="outline-container-org850744f" class="outline-2">
-<h2 id="org850744f">use buildroot develop linux kernel module</h2>
-<div class="outline-text-2" id="text-org850744f">
+<div id="outline-container-org71490a7" class="outline-2">
+<h2 id="org71490a7">use buildroot develop linux kernel module</h2>
+<div class="outline-text-2" id="text-org71490a7">
 </div>
-<div id="outline-container-org3d353c2" class="outline-3">
-<h3 id="org3d353c2">prepare buildroot source tree</h3>
-<div class="outline-text-3" id="text-org3d353c2">
+<div id="outline-container-orgdb29ee2" class="outline-3">
+<h3 id="orgdb29ee2">prepare buildroot source tree</h3>
+<div class="outline-text-3" id="text-orgdb29ee2">
 <div class="org-src-container">
 <pre class="src src-shell"><code>git clone https://git.buildroot.net/buildroot</code>
 <code>cd buildroot</code>
@@ -28,9 +27,9 @@
 </div>
 </div>
 
-<div id="outline-container-org675fdc1" class="outline-3">
-<h3 id="org675fdc1">create directory</h3>
-<div class="outline-text-3" id="text-org675fdc1">
+<div id="outline-container-org9256055" class="outline-3">
+<h3 id="org9256055">create directory</h3>
+<div class="outline-text-3" id="text-org9256055">
 <div class="org-src-container">
 <pre class="src src-shell"><code>mkdir package/lkhello</code>
 <code>mkdir package/lkhello/src</code>
@@ -39,9 +38,9 @@
 </div>
 </div>
 
-<div id="outline-container-org9302622" class="outline-3">
-<h3 id="org9302622">add Config.in</h3>
-<div class="outline-text-3" id="text-org9302622">
+<div id="outline-container-orge19f91c" class="outline-3">
+<h3 id="orge19f91c">add Config.in</h3>
+<div class="outline-text-3" id="text-orge19f91c">
 <div class="org-src-container">
 <pre class="src src-shell"><code>$EDITOR package/lkhello/Config.in</code>
 </pre>
@@ -65,9 +64,9 @@ write:
 </div>
 </div>
 
-<div id="outline-container-org8c939fa" class="outline-3">
-<h3 id="org8c939fa">add lkhello.mk</h3>
-<div class="outline-text-3" id="text-org8c939fa">
+<div id="outline-container-orgb3eb11c" class="outline-3">
+<h3 id="orgb3eb11c">add lkhello.mk</h3>
+<div class="outline-text-3" id="text-orgb3eb11c">
 <div class="org-src-container">
 <pre class="src src-shell"><code>$EDITOR package/lkhello/lkhello.mk</code>
 </pre>
@@ -96,9 +95,9 @@ write:
 </div>
 </div>
 
-<div id="outline-container-org7067e83" class="outline-3">
-<h3 id="org7067e83">write module</h3>
-<div class="outline-text-3" id="text-org7067e83">
+<div id="outline-container-org50f8f8d" class="outline-3">
+<h3 id="org50f8f8d">write module</h3>
+<div class="outline-text-3" id="text-org50f8f8d">
 <p>
 add Kconfig
 </p>
@@ -174,9 +173,9 @@ write:
 </div>
 
 
-<div id="outline-container-orgcfa114a" class="outline-3">
-<h3 id="orgcfa114a">add to buildroot menu</h3>
-<div class="outline-text-3" id="text-orgcfa114a">
+<div id="outline-container-orgda85a7f" class="outline-3">
+<h3 id="orgda85a7f">add to buildroot menu</h3>
+<div class="outline-text-3" id="text-orgda85a7f">
 <div class="org-src-container">
 <pre class="src src-shell"><code>$EDITOR package/Config.in</code>
 </pre>
@@ -204,9 +203,9 @@ add something like other package&rsquo;s define:
 </div>
 </div>
 
-<div id="outline-container-orgbfa9d42" class="outline-2">
-<h2 id="orgbfa9d42">all is done</h2>
-<div class="outline-text-2" id="text-orgbfa9d42">
+<div id="outline-container-orga31594f" class="outline-2">
+<h2 id="orga31594f">all is done</h2>
+<div class="outline-text-2" id="text-orga31594f">
 <p>
 all is done, now you can select &rsquo;lkhello&rsquo; use:
 </p>
@@ -242,7 +241,7 @@ use &rsquo;rmmod lkhello&rsquo; to print a &rsquo;Bye, World&rsquo; in kernel lo
 </div>
 </div>
 <div id="postamble" class="status">
-<p>Last updated: 2023-04-18</p>
+<p>Last updated: 2023-05-05</p>
 </div>
 </body>
 </html>

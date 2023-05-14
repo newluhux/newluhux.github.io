@@ -1,0 +1,18 @@
+* how to write a kermit send program
+
+** reference book
+
+1. https://www.kermitproject.org/kproto.pdf
+2. https://kermitproject.org/onlinebooks/kermitbook.pdf
+
+** kermit encode
+
+TODO
+
+** kermit checksum
+
+TODO
+
+** simple kermit program
+
+https://github.com/newluhux/ukermit

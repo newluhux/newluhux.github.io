@@ -3,22 +3,21 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-04-19 -->
+<!-- 2023-05-14 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
-<meta name="author" content="Lu Hui" />
 <meta name="generator" content="Org Mode" />
 </head>
 <body>
 <div id="content" class="content">
-<div id="outline-container-org279652f" class="outline-2">
-<h2 id="org279652f">qemu mt7628 emulation</h2>
-<div class="outline-text-2" id="text-org279652f">
+<div id="outline-container-orgf581d29" class="outline-2">
+<h2 id="orgf581d29">qemu mt7628 emulation</h2>
+<div class="outline-text-2" id="text-orgf581d29">
 </div>
-<div id="outline-container-orga981fe5" class="outline-3">
-<h3 id="orga981fe5">before using</h3>
-<div class="outline-text-3" id="text-orga981fe5">
+<div id="outline-container-org045d5c4" class="outline-3">
+<h3 id="org045d5c4">before using</h3>
+<div class="outline-text-3" id="text-org045d5c4">
 <p>
 I&rsquo;m add mt7628 support in qemu, some deivce is not working.
 </p>
@@ -29,9 +28,9 @@ you maybe need review source code.
 </div>
 </div>
 
-<div id="outline-container-org4ac71f4" class="outline-3">
-<h3 id="org4ac71f4">build qemu with patch</h3>
-<div class="outline-text-3" id="text-org4ac71f4">
+<div id="outline-container-orgc855ec8" class="outline-3">
+<h3 id="orgc855ec8">build qemu with patch</h3>
+<div class="outline-text-3" id="text-orgc855ec8">
 <div class="org-src-container">
 <pre class="src src-shell"><code>git clone https://gitlab.com/qemu-project/qemu</code>
 <code>git clone https://github.com/newluhux/qemu-mt7628</code>
@@ -50,9 +49,9 @@ you maybe need review source code.
 </div>
 </div>
 
-<div id="outline-container-org21c3ee2" class="outline-3">
-<h3 id="org21c3ee2">bootup mainline uboot</h3>
-<div class="outline-text-3" id="text-org21c3ee2">
+<div id="outline-container-org2350269" class="outline-3">
+<h3 id="org2350269">bootup mainline uboot</h3>
+<div class="outline-text-3" id="text-org2350269">
 <div class="org-src-container">
 <pre class="src src-shell"><code>wget http://musl.cc/mipsel-linux-muslsf-cross.tgz</code>
 <code>tar xf mipsel-linux-muslsf-cross.tgz</code>
@@ -119,9 +118,9 @@ after image load, use &rsquo;bootm&rsquo; bootup it.
 </div>
 </div>
 
-<div id="outline-container-orga7540bf" class="outline-3">
-<h3 id="orga7540bf">bootup openwrt firmware</h3>
-<div class="outline-text-3" id="text-orga7540bf">
+<div id="outline-container-org07957a6" class="outline-3">
+<h3 id="org07957a6">bootup openwrt firmware</h3>
+<div class="outline-text-3" id="text-org07957a6">
 <p>
 you need build a mainline uboot for mt7628 soc.
 </p>
@@ -178,18 +177,18 @@ use command &rsquo;bootm 0x1c050000&rsquo; bootup openwrt.
 </div>
 </div>
 
-<div id="outline-container-org2b2aa38" class="outline-3">
-<h3 id="org2b2aa38">bootup mainline linux kernel</h3>
-<div class="outline-text-3" id="text-org2b2aa38">
+<div id="outline-container-org165bfa2" class="outline-3">
+<h3 id="org165bfa2">bootup mainline linux kernel</h3>
+<div class="outline-text-3" id="text-org165bfa2">
 <p>
 TODO
 </p>
 </div>
 </div>
 
-<div id="outline-container-org9ff58ad" class="outline-3">
-<h3 id="org9ff58ad">bootup mainline NetBSD kernel</h3>
-<div class="outline-text-3" id="text-org9ff58ad">
+<div id="outline-container-org29417a0" class="outline-3">
+<h3 id="org29417a0">bootup mainline NetBSD kernel</h3>
+<div class="outline-text-3" id="text-org29417a0">
 <p>
 ref: <a href="https://www.netbsd.org/docs/guide/en/chap-build.html">https://www.netbsd.org/docs/guide/en/chap-build.html</a>
 </p>
@@ -281,18 +280,18 @@ connect serial port, you will see netbsd bootup log:
 </div>
 </div>
 
-<div id="outline-container-org3dc9338" class="outline-3">
-<h3 id="org3dc9338">bootup plan9 kernel</h3>
-<div class="outline-text-3" id="text-org3dc9338">
+<div id="outline-container-org6100d82" class="outline-3">
+<h3 id="org6100d82">bootup plan9 kernel</h3>
+<div class="outline-text-3" id="text-org6100d82">
 <p>
 TODO
 </p>
 </div>
 </div>
 
-<div id="outline-container-org52ab0b7" class="outline-3">
-<h3 id="org52ab0b7">bootup from flash image</h3>
-<div class="outline-text-3" id="text-org52ab0b7">
+<div id="outline-container-org7a16fe8" class="outline-3">
+<h3 id="org7a16fe8">bootup from flash image</h3>
+<div class="outline-text-3" id="text-org7a16fe8">
 <p>
 Now, you can bootup from flash.
 </p>
@@ -319,7 +318,7 @@ You need dump flash image from real mt7628 board, then:
 </div>
 </div>
 <div id="postamble" class="status">
-<p>Last updated: 2023-04-18</p>
+<p>Last updated: 2023-05-05</p>
 </div>
 </body>
 </html>
