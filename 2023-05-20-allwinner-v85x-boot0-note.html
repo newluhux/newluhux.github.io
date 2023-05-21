@@ -67,15 +67,70 @@ some opensource reference:
 </p>
 
 <p>
+boot0 load boot-package:
+</p>
+
+<p>
 <a href="https://github.com/lindenis-org/lindenis-v853-lichee-brandy-2.0-spl-pub/blob/d36b228278e654d7d7bfa2f5f777311b6d9dc61b/nboot/main/boot0_main.c#LL101C15-L101C15">https://github.com/lindenis-org/lindenis-v853-lichee-brandy-2.0-spl-pub/blob/d36b228278e654d7d7bfa2f5f777311b6d9dc61b/nboot/main/boot0_main.c#LL101C15-L101C15</a>
+</p>
+
+<p>
+boot0 load_package() function source code:
+</p>
+
+<p>
 <a href="https://github.com/szemzoa/sun8iw20_spl/blob/aedc18e734ecc71262fb64f962f485a12e56981c/nboot/load_image_mmc/load_image_sdmmc.c#L157">https://github.com/szemzoa/sun8iw20_spl/blob/aedc18e734ecc71262fb64f962f485a12e56981c/nboot/load_image_mmc/load_image_sdmmc.c#L157</a>
+</p>
+
+<p>
+boot0 load_toc1_from_sdmmc() function source code:
+</p>
+
+<p>
 <a href="https://github.com/szemzoa/sun8iw20_spl/blob/aedc18e734ecc71262fb64f962f485a12e56981c/nboot/load_image_mmc/load_image_sdmmc.c#LL113C4-L113C4">https://github.com/szemzoa/sun8iw20_spl/blob/aedc18e734ecc71262fb64f962f485a12e56981c/nboot/load_image_mmc/load_image_sdmmc.c#LL113C4-L113C4</a>
+</p>
+
+<p>
+v85x will load boot-package from this offset in sdcard:
+</p>
+
+<p>
 <a href="https://github.com/lindenis-org/lindenis-v853-lichee-brandy-2.0-spl-pub/blob/d36b228278e654d7d7bfa2f5f777311b6d9dc61b/include/spare_head.h#L64">https://github.com/lindenis-org/lindenis-v853-lichee-brandy-2.0-spl-pub/blob/d36b228278e654d7d7bfa2f5f777311b6d9dc61b/include/spare_head.h#L64</a>
+</p>
+
+<p>
+toc1 header struct:
+</p>
+
+<p>
 <a href="https://github.com/szemzoa/sun8iw20_spl/blob/aedc18e734ecc71262fb64f962f485a12e56981c/nboot/load_image_mmc/load_image_sdmmc.c#LL119C9-L119C9">https://github.com/szemzoa/sun8iw20_spl/blob/aedc18e734ecc71262fb64f962f485a12e56981c/nboot/load_image_mmc/load_image_sdmmc.c#LL119C9-L119C9</a>
+</p>
+
+<p>
 <a href="https://github.com/lindenis-org/lindenis-v853-lichee-brandy-2.0-spl-pub/blob/d36b228278e654d7d7bfa2f5f777311b6d9dc61b/include/private_toc.h#L58">https://github.com/lindenis-org/lindenis-v853-lichee-brandy-2.0-spl-pub/blob/d36b228278e654d7d7bfa2f5f777311b6d9dc61b/include/private_toc.h#L58</a>
+</p>
+
+<p>
+boot0 load_image() function source code:
+</p>
+
+<p>
 <a href="https://github.com/szemzoa/sun8iw20_spl/blob/aedc18e734ecc71262fb64f962f485a12e56981c/nboot/main/load_image.c#L31">https://github.com/szemzoa/sun8iw20_spl/blob/aedc18e734ecc71262fb64f962f485a12e56981c/nboot/main/load_image.c#L31</a>
+</p>
+
+<p>
+how to make toc1:
+</p>
+
+<p>
 <a href="https://linux-sunxi.org/Allwinner_Nezha#BSP_boot0_SPL">https://linux-sunxi.org/Allwinner_Nezha#BSP_boot0_SPL</a>
+</p>
+
+<p>
 <a href="https://fedoraproject.org/wiki/Architectures/RISC-V/Allwinner/zh-cn#%E5%88%9B%E5%BB%BA_u-boot.toc1">https://fedoraproject.org/wiki/Architectures/RISC-V/Allwinner/zh-cn#%E5%88%9B%E5%BB%BA_u-boot.toc1</a>
+</p>
+
+<p>
 <a href="https://github.com/smaeul/u-boot/blob/d1-wip/tools/sunxi_toc1.c">https://github.com/smaeul/u-boot/blob/d1-wip/tools/sunxi_toc1.c</a>
 </p>
 </div>

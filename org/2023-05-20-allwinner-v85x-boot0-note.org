@@ -24,13 +24,36 @@ https://github.com/newluhux/aw-spl-pub-tool/blob/master/aw-spl-pub-tool.c
 
 some opensource reference:
 
+boot0 load boot-package:
+
 https://github.com/lindenis-org/lindenis-v853-lichee-brandy-2.0-spl-pub/blob/d36b228278e654d7d7bfa2f5f777311b6d9dc61b/nboot/main/boot0_main.c#LL101C15-L101C15
+
+boot0 load_package() function source code:
+
 https://github.com/szemzoa/sun8iw20_spl/blob/aedc18e734ecc71262fb64f962f485a12e56981c/nboot/load_image_mmc/load_image_sdmmc.c#L157
+
+boot0 load_toc1_from_sdmmc() function source code:
+
 https://github.com/szemzoa/sun8iw20_spl/blob/aedc18e734ecc71262fb64f962f485a12e56981c/nboot/load_image_mmc/load_image_sdmmc.c#LL113C4-L113C4
+
+v85x will load boot-package from this offset in sdcard:
+
 https://github.com/lindenis-org/lindenis-v853-lichee-brandy-2.0-spl-pub/blob/d36b228278e654d7d7bfa2f5f777311b6d9dc61b/include/spare_head.h#L64
+
+toc1 header struct:
+
 https://github.com/szemzoa/sun8iw20_spl/blob/aedc18e734ecc71262fb64f962f485a12e56981c/nboot/load_image_mmc/load_image_sdmmc.c#LL119C9-L119C9
+
 https://github.com/lindenis-org/lindenis-v853-lichee-brandy-2.0-spl-pub/blob/d36b228278e654d7d7bfa2f5f777311b6d9dc61b/include/private_toc.h#L58
+
+boot0 load_image() function source code:
+
 https://github.com/szemzoa/sun8iw20_spl/blob/aedc18e734ecc71262fb64f962f485a12e56981c/nboot/main/load_image.c#L31
+
+how to make toc1:
+
 https://linux-sunxi.org/Allwinner_Nezha#BSP_boot0_SPL
+
 https://fedoraproject.org/wiki/Architectures/RISC-V/Allwinner/zh-cn#%E5%88%9B%E5%BB%BA_u-boot.toc1
+
 https://github.com/smaeul/u-boot/blob/d1-wip/tools/sunxi_toc1.c
