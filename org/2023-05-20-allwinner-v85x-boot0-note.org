@@ -1,0 +1,36 @@
+* allwinner v85x boot0 note
+
+** source
+
+https://github.com/lindenis-org/lindenis-v853-lichee-brandy-2.0-spl-pub
+
+** remake checksum
+
+you need remake checksum, after modify image.
+
+https://github.com/nminaylov/F1C100s_projects/blob/master/tools/mksunxi/mksunxi.c
+
+** boot0_header layout
+
+reference:
+
+https://github.com/lindenis-org/lindenis-v853-lichee-brandy-2.0-spl-pub/blob/master/include/private_boot0.h
+
+I make a simple tool use for show offset:
+
+https://github.com/newluhux/aw-spl-pub-tool/blob/master/aw-spl-pub-tool.c
+
+** nboot boot from sdcard
+
+some opensource reference:
+
+https://github.com/lindenis-org/lindenis-v853-lichee-brandy-2.0-spl-pub/blob/d36b228278e654d7d7bfa2f5f777311b6d9dc61b/nboot/main/boot0_main.c#LL101C15-L101C15
+https://github.com/szemzoa/sun8iw20_spl/blob/aedc18e734ecc71262fb64f962f485a12e56981c/nboot/load_image_mmc/load_image_sdmmc.c#L157
+https://github.com/szemzoa/sun8iw20_spl/blob/aedc18e734ecc71262fb64f962f485a12e56981c/nboot/load_image_mmc/load_image_sdmmc.c#LL113C4-L113C4
+https://github.com/lindenis-org/lindenis-v853-lichee-brandy-2.0-spl-pub/blob/d36b228278e654d7d7bfa2f5f777311b6d9dc61b/include/spare_head.h#L64
+https://github.com/szemzoa/sun8iw20_spl/blob/aedc18e734ecc71262fb64f962f485a12e56981c/nboot/load_image_mmc/load_image_sdmmc.c#LL119C9-L119C9
+https://github.com/lindenis-org/lindenis-v853-lichee-brandy-2.0-spl-pub/blob/d36b228278e654d7d7bfa2f5f777311b6d9dc61b/include/private_toc.h#L58
+https://github.com/szemzoa/sun8iw20_spl/blob/aedc18e734ecc71262fb64f962f485a12e56981c/nboot/main/load_image.c#L31
+https://linux-sunxi.org/Allwinner_Nezha#BSP_boot0_SPL
+https://fedoraproject.org/wiki/Architectures/RISC-V/Allwinner/zh-cn#%E5%88%9B%E5%BB%BA_u-boot.toc1
+https://github.com/smaeul/u-boot/blob/d1-wip/tools/sunxi_toc1.c
