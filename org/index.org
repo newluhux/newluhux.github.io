@@ -22,6 +22,8 @@ Slackware Linux / Guix System / C / Rust / Embedded system
 
 * Posts
 
+[[file:2023-05-28-simple-overlayfs-init-script.org]]
+
 [[file:2023-05-20-allwinner-v85x-boot0-note.org]]
 
 [[file:2023-05-14-how-to-write-a-kermit-send-program.org]]
