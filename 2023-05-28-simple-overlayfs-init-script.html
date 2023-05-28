@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-05-28 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>&lrm;</title>
+<meta name="author" content="Lu Hui" />
+<meta name="generator" content="Org Mode" />
+</head>
+<body>
+<div id="content" class="content">
+<div id="outline-container-org3ea0f9d" class="outline-2">
+<h2 id="org3ea0f9d">simple overlayfs init script</h2>
+<div class="outline-text-2" id="text-org3ea0f9d">
+</div>
+<div id="outline-container-orgbdff2de" class="outline-3">
+<h3 id="orgbdff2de">source code</h3>
+<div class="outline-text-3" id="text-orgbdff2de">
+<div class="org-src-container">
+<pre class="src src-shell"><code>#!/bin/sh</code>
+<code></code>
+<code>PATH=/bin:/sbin:/usr/bin:/usr/sbin</code>
+<code>export PATH</code>
+<code></code>
+<code>fallback() {</code>
+<code>        exec /sbin/init</code>
+<code>}</code>
+<code></code>
+<code># if your kernel haven't mount devtmpfs at bootup you need uncomment this:</code>
+<code># mount -t devtmpfs devtmpfs /dev</code>
+<code># this program need get cmdline from /proc</code>
+<code># program mount use /proc to detect filesystem type</code>
+<code>mount -t proc proc /proc</code>
+<code></code>
+<code>cmdline() {</code>
+<code>        cmdline_list=$(cat /proc/cmdline)</code>
+<code>        for i in ${cmdline_list}; do</code>
+<code>                key="$(echo "${i}" | cut -d'=' -f1)"</code>
+<code>                if [ "${1}" = "${key}" ]; then</code>
+<code>                        echo "${i}" | cut -d'=' -f2-</code>
+<code>                fi</code>
+<code>        done</code>
+<code>}</code>
+<code></code>
+<code>timeout=$(cmdline overlay_timeout)</code>
+<code>device=$(cmdline overlay_device)</code>
+<code></code>
+<code>if [ -z "${device}" ]; then</code>
+<code>        fallback</code>
+<code>fi</code>
+<code></code>
+<code>if [ -z "${timeout}" ]; then</code>
+<code>        timeout=30</code>
+<code>fi</code>
+<code></code>
+<code>while [ "${timeout}" -gt 0 ]</code>
+<code>do</code>
+<code>        if [ "${timeout}" -eq 0 ]; then</code>
+<code>                fallback</code>
+<code>        fi</code>
+<code>        if mount "${device}" /mnt; then</code>
+<code>                break;</code>
+<code>        fi</code>
+<code>        sleep 1</code>
+<code>        timeout=$((timeout - 1))</code>
+<code>done</code>
+<code></code>
+<code>mkdir  /mnt/upper</code>
+<code>rm -rf /mnt/work # make directory empty</code>
+<code>mkdir  /mnt/work</code>
+<code>mkdir  /mnt/new</code>
+<code>mount -t overlay overlay \</code>
+<code>        -o lowerdir=/,upperdir=/mnt/upper,workdir=/mnt/work /mnt/new || fallback</code>
+<code>mount -t devtmpfs devtmpfs /mnt/new/dev || fallback</code>
+<code>exec chroot /mnt/new/ /sbin/init || fallback</code>
+<code></code>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org78901ae" class="outline-3">
+<h3 id="org78901ae">how to use it</h3>
+<div class="outline-text-3" id="text-org78901ae">
+<p>
+put it into your rootfs, then rename to &rsquo;ovinit&rsquo;, then add execute perm
+</p>
+
+<pre class="example">
+<code>$EDITOR ovinit</code>
+<code>chmod +x ovinit</code>
+</pre>
+
+<p>
+you need tell kernel use this init script:
+</p>
+
+<p>
+example with uboot:
+</p>
+
+<pre class="example">
+<code>setenv bootargs init=/ovinit root=/dev/mmcblk0p2 overlay_device=/dev/mmclk0p3 overlay_timeout=5</code>
+<code>saveenv</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p>Last updated: 2023-05-28</p>
+</div>
+</body>
+</html>
