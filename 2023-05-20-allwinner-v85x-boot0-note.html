@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-05-21 -->
+<!-- 2023-06-07 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
@@ -50,11 +50,11 @@ reference:
 </p>
 
 <p>
-I make a simple tool use for show offset:
+allwinner have some tools use for modify this:
 </p>
 
 <p>
-<a href="https://github.com/newluhux/aw-spl-pub-tool/blob/master/aw-spl-pub-tool.c">https://github.com/newluhux/aw-spl-pub-tool/blob/master/aw-spl-pub-tool.c</a>
+<a href="https://github.com/lindenis-org/lindenis-v853-tools">https://github.com/lindenis-org/lindenis-v853-tools</a>
 </p>
 </div>
 </div>
@@ -133,12 +133,42 @@ how to make toc1:
 <p>
 <a href="https://github.com/smaeul/u-boot/blob/d1-wip/tools/sunxi_toc1.c">https://github.com/smaeul/u-boot/blob/d1-wip/tools/sunxi_toc1.c</a>
 </p>
+
+<p>
+I make a project, use buildroot generate bootable v85x bootimage:
+</p>
+
+<p>
+<a href="https://github.com/newluhux/buildroot_aw_v85x">https://github.com/newluhux/buildroot_aw_v85x</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org6f52473" class="outline-3">
+<h3 id="org6f52473">some error message rev eng</h3>
+<div class="outline-text-3" id="text-org6f52473">
+</div>
+<div id="outline-container-orge9fda6f" class="outline-4">
+<h4 id="orge9fda6f">function check_hardware_info()</h4>
+<div class="outline-text-4" id="text-orge9fda6f">
+<div class="org-src-container">
+<pre class="src src-c"><code>/* check sysctl, allwinner sucks, no register guide for this*/</code>
+<code>/* check allwinner sid */</code>
+<code>if (read32(0x030060a0) == 0) {</code>
+<code>        if (read(0x03006200 &amp; 0xFFFF) != 0) {</code>
+<code>                pr_emerg("bootinfo error1\n");</code>
+<code>                return 1;</code>
+<code>        }</code>
+<code>}</code>
+</pre>
+</div>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
-<p>Last updated: 2023-05-21</p>
+<p>Last updated: 2023-06-07</p>
 </div>
 </body>
 </html>

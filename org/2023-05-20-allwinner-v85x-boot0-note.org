@@ -16,9 +16,9 @@ reference:
 
 https://github.com/lindenis-org/lindenis-v853-lichee-brandy-2.0-spl-pub/blob/master/include/private_boot0.h
 
-I make a simple tool use for show offset:
+allwinner have some tools use for modify this:
 
-https://github.com/newluhux/aw-spl-pub-tool/blob/master/aw-spl-pub-tool.c
+https://github.com/lindenis-org/lindenis-v853-tools
 
 ** nboot boot from sdcard
 
@@ -57,3 +57,22 @@ https://linux-sunxi.org/Allwinner_Nezha#BSP_boot0_SPL
 https://fedoraproject.org/wiki/Architectures/RISC-V/Allwinner/zh-cn#%E5%88%9B%E5%BB%BA_u-boot.toc1
 
 https://github.com/smaeul/u-boot/blob/d1-wip/tools/sunxi_toc1.c
+
+I make a project, use buildroot generate bootable v85x bootimage:
+
+https://github.com/newluhux/buildroot_aw_v85x
+
+** some error message rev eng
+
+*** function check_hardware_info()
+
+#+BEGIN_SRC c
+  /* check sysctl, allwinner sucks, no register guide for this*/
+  /* check allwinner sid */
+  if (read32(0x030060a0) == 0) {
+	  if (read(0x03006200 & 0xFFFF) != 0) {
+		  pr_emerg("bootinfo error1\n");
+		  return 1;
+	  }
+  }
+#+END_SRC
