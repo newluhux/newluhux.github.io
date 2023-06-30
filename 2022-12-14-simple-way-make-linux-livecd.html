@@ -3,31 +3,30 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-05-21 -->
+<!-- 2023-06-30 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
-<meta name="author" content="Lu Hui" />
-<meta name="generator" content="Org Mode" />
+<meta name="generator" content="Org mode" />
 </head>
 <body>
-<div id="content" class="content">
-<div id="outline-container-org3069431" class="outline-2">
-<h2 id="org3069431">simple way make linux livecd</h2>
-<div class="outline-text-2" id="text-org3069431">
+<div id="content">
+<div id="outline-container-org62a54a8" class="outline-2">
+<h2 id="org62a54a8">simple way make linux livecd</h2>
+<div class="outline-text-2" id="text-org62a54a8">
 </div>
-<div id="outline-container-org68f2ff4" class="outline-3">
-<h3 id="org68f2ff4">use GNU Guix</h3>
-<div class="outline-text-3" id="text-org68f2ff4">
+<div id="outline-container-orgacaf30d" class="outline-3">
+<h3 id="orgacaf30d">use GNU Guix</h3>
+<div class="outline-text-3" id="text-orgacaf30d">
 <p>
 GNU Guix can define whole system use scheme lisp.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org9a8c5e2" class="outline-3">
-<h3 id="org9a8c5e2">make a simple config.scm</h3>
-<div class="outline-text-3" id="text-org9a8c5e2">
+<div id="outline-container-org6f7f6cf" class="outline-3">
+<h3 id="org6f7f6cf">make a simple config.scm</h3>
+<div class="outline-text-3" id="text-org6f7f6cf">
 <p>
 file config.scm:
 </p>
@@ -44,37 +43,37 @@ file config.scm:
 <code></code>
 <code>  ;; this bootloader config will ignore by disk image generate.</code>
 <code>  (bootloader (bootloader-configuration</code>
-<code>                (bootloader grub-bootloader)</code>
-<code>                (targets '("/dev/sdX")))) </code>
+<code>		(bootloader grub-bootloader)</code>
+<code>		(targets '("/dev/sdX")))) </code>
 <code></code>
 <code>  ;; this filesystem config will ignore by disk image generate.</code>
 <code>  (file-systems (cons* (file-system</code>
-<code>                        (device (file-system-label "my-root"))</code>
-<code>                        (mount-point "/")</code>
-<code>                        (type "ext4"))</code>
-<code>                      %base-file-systems)) ; basic filesystem, such as /proc</code>
+<code>			(device (file-system-label "my-root"))</code>
+<code>			(mount-point "/")</code>
+<code>			(type "ext4"))</code>
+<code>		      %base-file-systems)) ; basic filesystem, such as /proc</code>
 <code></code>
 <code>  (users (cons* (user-account</code>
-<code>                 (name "guest") </code>
-<code>                 (comment "Guest")</code>
-<code>                 (group "users")</code>
-<code>                 (supplementary-groups '("audio" "video")))</code>
-<code>                %base-user-accounts)) ; basic users, such as root, nobody</code>
+<code>		 (name "guest") </code>
+<code>		 (comment "Guest")</code>
+<code>		 (group "users")</code>
+<code>		 (supplementary-groups '("audio" "video")))</code>
+<code>		%base-user-accounts)) ; basic users, such as root, nobody</code>
 <code></code>
 <code>  (packages (cons* nss-certs ; tls certs</code>
-<code>                   %base-packages)) ; basic package, such as coreutils util-linux</code>
+<code>		   %base-packages)) ; basic package, such as coreutils util-linux</code>
 <code></code>
 <code>  (services (cons* (service dhcp-client-service-type) ; dhcp client service</code>
-<code>                   %base-services))) ;; basic service, such as getty udev</code>
+<code>		   %base-services))) ;; basic service, such as getty udev</code>
 <code></code>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgcc9d9c0" class="outline-3">
-<h3 id="orgcc9d9c0">add your packages</h3>
-<div class="outline-text-3" id="text-orgcc9d9c0">
+<div id="outline-container-orgccf8097" class="outline-3">
+<h3 id="orgccf8097">add your packages</h3>
+<div class="outline-text-3" id="text-orgccf8097">
 <div class="org-src-container">
 <pre class="src src-diff"><code>diff --git a/config.scm b/config.scm</code>
 <code>index 0d7a449..f8eadab 100644</code>
@@ -89,7 +88,7 @@ file config.scm:
 <code> (operating-system</code>
 <code>   (host-name "livecd")</code>
 <code>@@ -27,6 +27,12 @@</code>
-<code>                 %base-user-accounts)) ; basic users, such as root, nobody</code>
+<code>		 %base-user-accounts)) ; basic users, such as root, nobody</code>
 <code></code>
 <code>   (packages (cons* nss-certs ; tls certs</code>
 <code>+                   tmux ; terminal mux</code>
@@ -98,7 +97,7 @@ file config.scm:
 <code>+                   emacs-company ; autocomplete plugin for emacs</code>
 <code>+                   emacs-geiser ; emacs scheme plugin</code>
 <code>+                   w3m ; text web browser</code>
-<code>                    %base-packages)) ; basic package, such as coreutils util-linux</code>
+<code>		    %base-packages)) ; basic package, such as coreutils util-linux</code>
 <code></code>
 <code>   (services (cons* (service dhcp-client-service-type) ; dhcp client service</code>
 <code></code>
@@ -107,9 +106,9 @@ file config.scm:
 </div>
 </div>
 
-<div id="outline-container-org47cd324" class="outline-3">
-<h3 id="org47cd324">add your services</h3>
-<div class="outline-text-3" id="text-org47cd324">
+<div id="outline-container-orgaa124c5" class="outline-3">
+<h3 id="orgaa124c5">add your services</h3>
+<div class="outline-text-3" id="text-orgaa124c5">
 <div class="org-src-container">
 <pre class="src src-diff"><code>diff --git a/config.scm b/config.scm</code>
 <code>index f8eadab..480a9bb 100644</code>
@@ -123,7 +122,7 @@ file config.scm:
 <code></code>
 <code> (operating-system</code>
 <code>@@ -36,4 +36,9 @@</code>
-<code>                    %base-packages)) ; basic package, such as coreutils util-linux</code>
+<code>		    %base-packages)) ; basic package, such as coreutils util-linux</code>
 <code></code>
 <code>   (services (cons* (service dhcp-client-service-type) ; dhcp client service</code>
 <code>+                   (service kmscon-service-type</code>
@@ -131,15 +130,15 @@ file config.scm:
 <code>+                             (virtual-terminal "tty7"))) ; colorful terminal</code>
 <code>+                   (dbus-service) ; use in kmscon</code>
 <code>+                   (service tor-service-type) ; use for access internet</code>
-<code>                    %base-services))) ;; basic service, such as getty udev</code>
+<code>		    %base-services))) ;; basic service, such as getty udev</code>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org7788b75" class="outline-3">
-<h3 id="org7788b75">add your home config file</h3>
-<div class="outline-text-3" id="text-org7788b75">
+<div id="outline-container-org69f8098" class="outline-3">
+<h3 id="org69f8098">add your home config file</h3>
+<div class="outline-text-3" id="text-org69f8098">
 <p>
 you can define your home config file in skel:
 </p>
@@ -159,22 +158,22 @@ you can define your home config file in skel:
 <code>--- a/config.scm</code>
 <code>+++ b/config.scm</code>
 <code>@@ -25,6 +25,7 @@</code>
-<code>                  (group "users")</code>
-<code>                  (supplementary-groups '("audio" "video")))</code>
-<code>                 %base-user-accounts)) ; basic users, such as root, nobody</code>
+<code>		  (group "users")</code>
+<code>		  (supplementary-groups '("audio" "video")))</code>
+<code>		 %base-user-accounts)) ; basic users, such as root, nobody</code>
 <code>+  (skeletons `(("." ,(local-file "./skel" "skel" #:recursive? #t))))</code>
 <code></code>
 <code>   (packages (cons* nss-certs ; tls certs</code>
-<code>                    tmux ; terminal mux</code>
+<code>		    tmux ; terminal mux</code>
 <code></code>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org5f06f15" class="outline-3">
-<h3 id="org5f06f15">add your data file</h3>
-<div class="outline-text-3" id="text-org5f06f15">
+<div id="outline-container-org69d3874" class="outline-3">
+<h3 id="org69d3874">add your data file</h3>
+<div class="outline-text-3" id="text-org69d3874">
 <p>
 copy your data file:
 </p>
@@ -192,25 +191,25 @@ copy your data file:
 <code>--- a/config.scm</code>
 <code>+++ b/config.scm</code>
 <code>@@ -42,4 +42,10 @@</code>
-<code>                              (virtual-terminal "tty7"))) ; colorful terminal</code>
-<code>                    (dbus-service) ; use in kmscon</code>
-<code>                    (service tor-service-type) ; use for access internet</code>
+<code>			      (virtual-terminal "tty7"))) ; colorful terminal</code>
+<code>		    (dbus-service) ; use in kmscon</code>
+<code>		    (service tor-service-type) ; use for access internet</code>
 <code>+                   (service special-files-service-type</code>
 <code>+                            `(("/README" ,(local-file "./data/README" "README"))</code>
 <code>+                              ("/etc/config.scm" ,(local-file "./config.scm"</code>
 <code>+                                                              "config.scm"))</code>
 <code>+                              ("/music" ,(local-file "./data/music" "music"</code>
 <code>+                                                     #:recursive? #t))))</code>
-<code>                    %base-services))) ;; basic service, such as getty udev</code>
+<code>		    %base-services))) ;; basic service, such as getty udev</code>
 <code></code>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgc4cd258" class="outline-3">
-<h3 id="orgc4cd258">test your config</h3>
-<div class="outline-text-3" id="text-orgc4cd258">
+<div id="outline-container-org4606f4e" class="outline-3">
+<h3 id="org4606f4e">test your config</h3>
+<div class="outline-text-3" id="text-org4606f4e">
 <p>
 boot up a virtual machine, use qemu.
 </p>
@@ -222,9 +221,9 @@ boot up a virtual machine, use qemu.
 </div>
 </div>
 
-<div id="outline-container-orga6390b3" class="outline-3">
-<h3 id="orga6390b3">make bootable image</h3>
-<div class="outline-text-3" id="text-orga6390b3">
+<div id="outline-container-org2a04767" class="outline-3">
+<h3 id="org2a04767">make bootable image</h3>
+<div class="outline-text-3" id="text-org2a04767">
 <p>
 bootable disk image, use ext4 file system for root.
 </p>
@@ -263,9 +262,9 @@ more format:
 </div>
 </div>
 
-<div id="outline-container-org070bbe6" class="outline-3">
-<h3 id="org070bbe6">need more?</h3>
-<div class="outline-text-3" id="text-org070bbe6">
+<div id="outline-container-org35dd062" class="outline-3">
+<h3 id="org35dd062">need more?</h3>
+<div class="outline-text-3" id="text-org35dd062">
 <div class="org-src-container">
 <pre class="src src-shell"><code>info guix</code>
 </pre>
@@ -283,7 +282,7 @@ or
 </div>
 </div>
 <div id="postamble" class="status">
-<p>Last updated: 2023-05-05</p>
+<p>Last updated: 2023-06-28</p>
 </div>
 </body>
 </html>

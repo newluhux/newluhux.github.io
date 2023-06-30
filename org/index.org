@@ -1,26 +1,12 @@
 * LuHui's Blog
 
-This site user firendly for:
-
-- eww
-- w3m
-- lynx
-- links
-- edbrowse
-- abaco
-- mothra
-- icecat
-- ungoogled-chromium
-
 * About
 
-Slackware Linux / Guix System / C / Rust / Embedded system
-
-#+BEGIN_SRC text
-显然硬件自由比软件自由更为重要。
-#+END_SRC
+Guix System / C / Rust / Embedded system
 
 * Posts
+
+[[file:2023-06-30-pkgsrc-note.org]]
 
 [[file:2023-05-28-simple-overlayfs-init-script.org]]
 

@@ -3,22 +3,21 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-05-21 -->
+<!-- 2023-06-30 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
-<meta name="author" content="Lu Hui" />
-<meta name="generator" content="Org Mode" />
+<meta name="generator" content="Org mode" />
 </head>
 <body>
-<div id="content" class="content">
-<div id="outline-container-orgc3a64b8" class="outline-2">
-<h2 id="orgc3a64b8">mt7628 uboot spl</h2>
-<div class="outline-text-2" id="text-orgc3a64b8">
+<div id="content">
+<div id="outline-container-org34d7c82" class="outline-2">
+<h2 id="org34d7c82">mt7628 uboot spl</h2>
+<div class="outline-text-2" id="text-org34d7c82">
 </div>
-<div id="outline-container-org59fe713" class="outline-3">
-<h3 id="org59fe713">u-boot-spl.bin</h3>
-<div class="outline-text-3" id="text-org59fe713">
+<div id="outline-container-orgb077b03" class="outline-3">
+<h3 id="orgb077b03">u-boot-spl.bin</h3>
+<div class="outline-text-3" id="text-orgb077b03">
 <p>
 sample is from uboot mainline
 </p>
@@ -33,13 +32,13 @@ begin of file is text section:
 <code>9c000000 &lt;_start&gt;:</code>
 <code>9c000000:       1000013f        b       9c000500 &lt;reset&gt;</code>
 <code>9c000004:       00000000        nop</code>
-<code>        ...</code>
+<code>	...</code>
 <code>9c000200:       0320d025        move    k0,t9</code>
 <code>9c000204:       0080d825        move    k1,a0</code>
 <code>9c000208:       2419000f        li      t9,15</code>
 <code>9c00020c:       24040000        li      a0,0</code>
 <code>9c000210:       7000007f        sdbbp   0x1</code>
-<code>        ...</code>
+<code>	...</code>
 </pre>
 </div>
 
@@ -86,7 +85,7 @@ I guess mt7628 bootup process is:
 </div>
 </div>
 <div id="postamble" class="status">
-<p>Last updated: 2023-05-05</p>
+<p>Last updated: 2023-06-28</p>
 </div>
 </body>
 </html>

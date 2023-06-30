@@ -3,22 +3,21 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-05-28 -->
+<!-- 2023-06-30 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
-<meta name="author" content="Lu Hui" />
-<meta name="generator" content="Org Mode" />
+<meta name="generator" content="Org mode" />
 </head>
 <body>
-<div id="content" class="content">
-<div id="outline-container-org3ea0f9d" class="outline-2">
-<h2 id="org3ea0f9d">simple overlayfs init script</h2>
-<div class="outline-text-2" id="text-org3ea0f9d">
+<div id="content">
+<div id="outline-container-org46f8778" class="outline-2">
+<h2 id="org46f8778">simple overlayfs init script</h2>
+<div class="outline-text-2" id="text-org46f8778">
 </div>
-<div id="outline-container-orgbdff2de" class="outline-3">
-<h3 id="orgbdff2de">source code</h3>
-<div class="outline-text-3" id="text-orgbdff2de">
+<div id="outline-container-org1501729" class="outline-3">
+<h3 id="org1501729">source code</h3>
+<div class="outline-text-3" id="text-org1501729">
 <div class="org-src-container">
 <pre class="src src-shell"><code>#!/bin/sh</code>
 <code></code>
@@ -26,7 +25,7 @@
 <code>export PATH</code>
 <code></code>
 <code>fallback() {</code>
-<code>        exec /sbin/init</code>
+<code>	exec /sbin/init</code>
 <code>}</code>
 <code></code>
 <code># if your kernel haven't mount devtmpfs at bootup you need uncomment this:</code>
@@ -36,36 +35,36 @@
 <code>mount -t proc proc /proc</code>
 <code></code>
 <code>cmdline() {</code>
-<code>        cmdline_list=$(cat /proc/cmdline)</code>
-<code>        for i in ${cmdline_list}; do</code>
-<code>                key="$(echo "${i}" | cut -d'=' -f1)"</code>
-<code>                if [ "${1}" = "${key}" ]; then</code>
-<code>                        echo "${i}" | cut -d'=' -f2-</code>
-<code>                fi</code>
-<code>        done</code>
+<code>	cmdline_list=$(cat /proc/cmdline)</code>
+<code>	for i in ${cmdline_list}; do</code>
+<code>		key="$(echo "${i}" | cut -d'=' -f1)"</code>
+<code>		if [ "${1}" = "${key}" ]; then</code>
+<code>			echo "${i}" | cut -d'=' -f2-</code>
+<code>		fi</code>
+<code>	done</code>
 <code>}</code>
 <code></code>
 <code>timeout=$(cmdline overlay_timeout)</code>
 <code>device=$(cmdline overlay_device)</code>
 <code></code>
 <code>if [ -z "${device}" ]; then</code>
-<code>        fallback</code>
+<code>	fallback</code>
 <code>fi</code>
 <code></code>
 <code>if [ -z "${timeout}" ]; then</code>
-<code>        timeout=30</code>
+<code>	timeout=30</code>
 <code>fi</code>
 <code></code>
 <code>while [ "${timeout}" -gt 0 ]</code>
 <code>do</code>
-<code>        if [ "${timeout}" -eq 0 ]; then</code>
-<code>                fallback</code>
-<code>        fi</code>
-<code>        if mount "${device}" /mnt; then</code>
-<code>                break;</code>
-<code>        fi</code>
-<code>        sleep 1</code>
-<code>        timeout=$((timeout - 1))</code>
+<code>	if [ "${timeout}" -eq 0 ]; then</code>
+<code>		fallback</code>
+<code>	fi</code>
+<code>	if mount "${device}" /mnt; then</code>
+<code>		break;</code>
+<code>	fi</code>
+<code>	sleep 1</code>
+<code>	timeout=$((timeout - 1))</code>
 <code>done</code>
 <code></code>
 <code>mkdir  /mnt/upper</code>
@@ -73,7 +72,7 @@
 <code>mkdir  /mnt/work</code>
 <code>mkdir  /mnt/new</code>
 <code>mount -t overlay overlay \</code>
-<code>        -o lowerdir=/,upperdir=/mnt/upper,workdir=/mnt/work /mnt/new || fallback</code>
+<code>	-o lowerdir=/,upperdir=/mnt/upper,workdir=/mnt/work /mnt/new || fallback</code>
 <code>mount -t devtmpfs devtmpfs /mnt/new/dev || fallback</code>
 <code>exec chroot /mnt/new/ /sbin/init || fallback</code>
 <code></code>
@@ -82,9 +81,9 @@
 </div>
 </div>
 
-<div id="outline-container-org78901ae" class="outline-3">
-<h3 id="org78901ae">how to use it</h3>
-<div class="outline-text-3" id="text-org78901ae">
+<div id="outline-container-orge2887fa" class="outline-3">
+<h3 id="orge2887fa">how to use it</h3>
+<div class="outline-text-3" id="text-orge2887fa">
 <p>
 put it into your rootfs, then rename to &rsquo;ovinit&rsquo;, then add execute perm
 </p>
@@ -111,7 +110,7 @@ example with uboot:
 </div>
 </div>
 <div id="postamble" class="status">
-<p>Last updated: 2023-05-28</p>
+<p>Last updated: 2023-06-28</p>
 </div>
 </body>
 </html>

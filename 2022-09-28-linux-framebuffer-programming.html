@@ -3,40 +3,39 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-05-21 -->
+<!-- 2023-06-30 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
-<meta name="author" content="Lu Hui" />
-<meta name="generator" content="Org Mode" />
+<meta name="generator" content="Org mode" />
 </head>
 <body>
-<div id="content" class="content">
-<div id="outline-container-orgfb44491" class="outline-2">
-<h2 id="orgfb44491">Linux framebuffer programming</h2>
-<div class="outline-text-2" id="text-orgfb44491">
+<div id="content">
+<div id="outline-container-org32f779c" class="outline-2">
+<h2 id="org32f779c">Linux framebuffer programming</h2>
+<div class="outline-text-2" id="text-org32f779c">
 </div>
-<div id="outline-container-org69e8177" class="outline-3">
-<h3 id="org69e8177">framebuffer and memory</h3>
-<div class="outline-text-3" id="text-org69e8177">
+<div id="outline-container-org1e24e80" class="outline-3">
+<h3 id="org1e24e80">framebuffer and memory</h3>
+<div class="outline-text-3" id="text-org1e24e80">
 <p>
 framebuffer is a memory area, provide &ldquo;/dev/fbN&rdquo; to access it.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org152ba49" class="outline-3">
-<h3 id="org152ba49">open framebuffer</h3>
-<div class="outline-text-3" id="text-org152ba49">
+<div id="outline-container-org9f60aae" class="outline-3">
+<h3 id="org9f60aae">open framebuffer</h3>
+<div class="outline-text-3" id="text-org9f60aae">
 <pre class="example">
 <code>int fbdev_fd = open("/dev/fb0",O_RDWR);</code>
 </pre>
 </div>
 </div>
 
-<div id="outline-container-org559e7c5" class="outline-3">
-<h3 id="org559e7c5">get framebuffer size</h3>
-<div class="outline-text-3" id="text-org559e7c5">
+<div id="outline-container-org191492d" class="outline-3">
+<h3 id="org191492d">get framebuffer size</h3>
+<div class="outline-text-3" id="text-org191492d">
 <pre class="example">
 <code>struct fb_fix_screeninfo fbdev_finfo;</code>
 <code>ioctl(fbdev_fd, FBIOGET_FSCREENINFO, &amp;fbdev_finfo);</code>
@@ -45,21 +44,21 @@ framebuffer is a memory area, provide &ldquo;/dev/fbN&rdquo; to access it.
 </div>
 </div>
 
-<div id="outline-container-org8327395" class="outline-3">
-<h3 id="org8327395">use mmap()</h3>
-<div class="outline-text-3" id="text-org8327395">
+<div id="outline-container-orgeeda517" class="outline-3">
+<h3 id="orgeeda517">use mmap()</h3>
+<div class="outline-text-3" id="text-orgeeda517">
 <pre class="example">
 <code>uint8_t *fbdev_mem = (uint8_t *)mmap(NULL,fbdev_size,</code>
-<code>                                    PROT_READ | PROT_WRITE,</code>
-<code>                                    MAP_SHARED, fbdev_fd ,0);</code>
+<code>				    PROT_READ | PROT_WRITE,</code>
+<code>				    MAP_SHARED, fbdev_fd ,0);</code>
 <code>memset(fbdev_mem, 0, fbdev_size); // make screen blank</code>
 </pre>
 </div>
 </div>
 
-<div id="outline-container-org8facf84" class="outline-3">
-<h3 id="org8facf84">use read() / write()</h3>
-<div class="outline-text-3" id="text-org8facf84">
+<div id="outline-container-org10f7d2e" class="outline-3">
+<h3 id="org10f7d2e">use read() / write()</h3>
+<div class="outline-text-3" id="text-org10f7d2e">
 <pre class="example">
 <code>uint8_t *buf = (uint8_t *)malloc(fbdev_size);</code>
 <code>memset(buf,0,fbdev_size);</code>
@@ -68,9 +67,9 @@ framebuffer is a memory area, provide &ldquo;/dev/fbN&rdquo; to access it.
 </div>
 </div>
 
-<div id="outline-container-org06a32e0" class="outline-3">
-<h3 id="org06a32e0">framebuffer data format</h3>
-<div class="outline-text-3" id="text-org06a32e0">
+<div id="outline-container-org184ff20" class="outline-3">
+<h3 id="org184ff20">framebuffer data format</h3>
+<div class="outline-text-3" id="text-org184ff20">
 <div class="org-src-container">
 <pre class="src src-text"><code>You can get and set parts of the color map. Communication is done with</code>
 <code>16 bits per color part (red, green, blue, transparency) to support all</code>
@@ -83,9 +82,9 @@ framebuffer is a memory area, provide &ldquo;/dev/fbN&rdquo; to access it.
 </div>
 </div>
 
-<div id="outline-container-orgd7584bf" class="outline-3">
-<h3 id="orgd7584bf">get bits per pixel</h3>
-<div class="outline-text-3" id="text-orgd7584bf">
+<div id="outline-container-org6809497" class="outline-3">
+<h3 id="org6809497">get bits per pixel</h3>
+<div class="outline-text-3" id="text-org6809497">
 <pre class="example">
 <code>struct fb_var_screeninfo fbdev_vinfo;</code>
 <code>ioctl(fbdev_fd, FBIOGET_VSCREENINFO, &amp;fbdev_vinfo);</code>
@@ -102,32 +101,32 @@ if bits_per_pixel is 32, it mean a pixel in memory use 4 bytes.
 </div>
 </div>
 
-<div id="outline-container-org759d10e" class="outline-3">
-<h3 id="org759d10e">draw pixel</h3>
-<div class="outline-text-3" id="text-org759d10e">
+<div id="outline-container-org949ae7a" class="outline-3">
+<h3 id="org949ae7a">draw pixel</h3>
+<div class="outline-text-3" id="text-org949ae7a">
 <pre class="example">
 <code>void fbdev_draw_pixel(uint x, uint y, uint32_t color) {</code>
-<code>        // position in framebuffer, you can also use lseek(), write()</code>
-<code>        int pos = y * fbdev_finfo.line_length +</code>
-<code>                x * fbdev_vinfo.bits_per_pixel / 8;</code>
-<code>        uint8_t *fbp8 = (uint8_t *)fbdev_mem + pos;</code>
-<code>        uint16_t *fbp16 = (uint16_t *)fbp8;</code>
-<code>        uint32_t *fbp32 = (uint32_t *)fbp8;</code>
-<code>        switch(fbdev_vinfo.bits_per_pixel) {</code>
-<code>        case 32:</code>
-<code>                *fbp32 = color;</code>
-<code>                break;</code>
-<code>        case 16:</code>
-<code>                *fbp16 = color;</code>
-<code>                break;</code>
-<code>        case 8:</code>
-<code>                *fbp8 = color;</code>
-<code>                break;</code>
-<code>        default:</code>
-<code>                *fbp8 = color;</code>
-<code>                break;</code>
-<code>        }</code>
-<code>        return;</code>
+<code>	// position in framebuffer, you can also use lseek(), write()</code>
+<code>	int pos = y * fbdev_finfo.line_length +</code>
+<code>		x * fbdev_vinfo.bits_per_pixel / 8;</code>
+<code>	uint8_t *fbp8 = (uint8_t *)fbdev_mem + pos;</code>
+<code>	uint16_t *fbp16 = (uint16_t *)fbp8;</code>
+<code>	uint32_t *fbp32 = (uint32_t *)fbp8;</code>
+<code>	switch(fbdev_vinfo.bits_per_pixel) {</code>
+<code>	case 32:</code>
+<code>		*fbp32 = color;</code>
+<code>		break;</code>
+<code>	case 16:</code>
+<code>		*fbp16 = color;</code>
+<code>		break;</code>
+<code>	case 8:</code>
+<code>		*fbp8 = color;</code>
+<code>		break;</code>
+<code>	default:</code>
+<code>		*fbp8 = color;</code>
+<code>		break;</code>
+<code>	}</code>
+<code>	return;</code>
 <code>}</code>
 </pre>
 
@@ -145,9 +144,9 @@ you will see a white point on screen (100,100)
 </div>
 </div>
 
-<div id="outline-container-orgdc71dea" class="outline-3">
-<h3 id="orgdc71dea">draw char use bitmap font</h3>
-<div class="outline-text-3" id="text-orgdc71dea">
+<div id="outline-container-org5abb0c7" class="outline-3">
+<h3 id="org5abb0c7">draw char use bitmap font</h3>
+<div class="outline-text-3" id="text-org5abb0c7">
 <p>
 a simple 8x8 bitmap font define:
 </p>
@@ -212,7 +211,7 @@ this code will draw a 0 on screen (100,50) .
 </div>
 </div>
 <div id="postamble" class="status">
-<p>Last updated: 2023-05-05</p>
+<p>Last updated: 2023-06-28</p>
 </div>
 </body>
 </html>

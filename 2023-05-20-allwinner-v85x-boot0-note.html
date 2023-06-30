@@ -3,31 +3,30 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-06-07 -->
+<!-- 2023-06-30 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
-<meta name="author" content="Lu Hui" />
-<meta name="generator" content="Org Mode" />
+<meta name="generator" content="Org mode" />
 </head>
 <body>
-<div id="content" class="content">
-<div id="outline-container-orgcbd85b3" class="outline-2">
-<h2 id="orgcbd85b3">allwinner v85x boot0 note</h2>
-<div class="outline-text-2" id="text-orgcbd85b3">
+<div id="content">
+<div id="outline-container-org6c492b5" class="outline-2">
+<h2 id="org6c492b5">allwinner v85x boot0 note</h2>
+<div class="outline-text-2" id="text-org6c492b5">
 </div>
-<div id="outline-container-org400b132" class="outline-3">
-<h3 id="org400b132">source</h3>
-<div class="outline-text-3" id="text-org400b132">
+<div id="outline-container-org311fb7f" class="outline-3">
+<h3 id="org311fb7f">source</h3>
+<div class="outline-text-3" id="text-org311fb7f">
 <p>
 <a href="https://github.com/lindenis-org/lindenis-v853-lichee-brandy-2.0-spl-pub">https://github.com/lindenis-org/lindenis-v853-lichee-brandy-2.0-spl-pub</a>
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgf1c1b18" class="outline-3">
-<h3 id="orgf1c1b18">remake checksum</h3>
-<div class="outline-text-3" id="text-orgf1c1b18">
+<div id="outline-container-org801aeee" class="outline-3">
+<h3 id="org801aeee">remake checksum</h3>
+<div class="outline-text-3" id="text-org801aeee">
 <p>
 you need remake checksum, after modify image.
 </p>
@@ -38,9 +37,9 @@ you need remake checksum, after modify image.
 </div>
 </div>
 
-<div id="outline-container-org94da48c" class="outline-3">
-<h3 id="org94da48c">boot0_header layout</h3>
-<div class="outline-text-3" id="text-org94da48c">
+<div id="outline-container-orga43677a" class="outline-3">
+<h3 id="orga43677a">boot0_header layout</h3>
+<div class="outline-text-3" id="text-orga43677a">
 <p>
 reference:
 </p>
@@ -59,9 +58,9 @@ allwinner have some tools use for modify this:
 </div>
 </div>
 
-<div id="outline-container-orgd163cf7" class="outline-3">
-<h3 id="orgd163cf7">nboot boot from sdcard</h3>
-<div class="outline-text-3" id="text-orgd163cf7">
+<div id="outline-container-org3994bfa" class="outline-3">
+<h3 id="org3994bfa">nboot boot from sdcard</h3>
+<div class="outline-text-3" id="text-org3994bfa">
 <p>
 some opensource reference:
 </p>
@@ -144,21 +143,21 @@ I make a project, use buildroot generate bootable v85x bootimage:
 </div>
 </div>
 
-<div id="outline-container-org6f52473" class="outline-3">
-<h3 id="org6f52473">some error message rev eng</h3>
-<div class="outline-text-3" id="text-org6f52473">
+<div id="outline-container-org7b6d884" class="outline-3">
+<h3 id="org7b6d884">some error message rev eng</h3>
+<div class="outline-text-3" id="text-org7b6d884">
 </div>
-<div id="outline-container-orge9fda6f" class="outline-4">
-<h4 id="orge9fda6f">function check_hardware_info()</h4>
-<div class="outline-text-4" id="text-orge9fda6f">
+<div id="outline-container-org8a80464" class="outline-4">
+<h4 id="org8a80464">function check_hardware_info()</h4>
+<div class="outline-text-4" id="text-org8a80464">
 <div class="org-src-container">
 <pre class="src src-c"><code>/* check sysctl, allwinner sucks, no register guide for this*/</code>
 <code>/* check allwinner sid */</code>
 <code>if (read32(0x030060a0) == 0) {</code>
-<code>        if (read(0x03006200 &amp; 0xFFFF) != 0) {</code>
-<code>                pr_emerg("bootinfo error1\n");</code>
-<code>                return 1;</code>
-<code>        }</code>
+<code>	if (read(0x03006200 &amp; 0xFFFF) != 0) {</code>
+<code>		pr_emerg("bootinfo error1\n");</code>
+<code>		return 1;</code>
+<code>	}</code>
 <code>}</code>
 </pre>
 </div>
@@ -168,7 +167,7 @@ I make a project, use buildroot generate bootable v85x bootimage:
 </div>
 </div>
 <div id="postamble" class="status">
-<p>Last updated: 2023-06-07</p>
+<p>Last updated: 2023-06-28</p>
 </div>
 </body>
 </html>

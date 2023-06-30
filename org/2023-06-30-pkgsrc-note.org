@@ -1,0 +1,13 @@
+* pkgsrc note
+
+** sort distfile source
+
+https://github.com/NetBSD/pkgsrc/blob/7df1faa3a610a214d4de4e20e57316901b59e8c4/mk/defaults/mk.conf#L603
+
+if you live in china or hongkong:
+
+add this line in your mk.conf
+
+#+BEGIN_SRC
+MASTER_SORT = .cn .edu.cn .hk .jp
+#+END_SRC
