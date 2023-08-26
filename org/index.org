@@ -6,6 +6,8 @@ Guix System / C / Rust / Embedded system
 
 * Posts
 
+[[file:2023-08-26-nokia-105-note.org]]
+
 [[file:2023-06-30-pkgsrc-note.org]]
 
 [[file:2023-05-28-simple-overlayfs-init-script.org]]

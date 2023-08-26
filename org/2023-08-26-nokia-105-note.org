@@ -1,0 +1,49 @@
+* Nokia 105(2G) Note
+
+I buy a new nokia 105(not 4G) from taobao:
+
+https://www.nokia.com/phones/en_int/nokia-105?sku=1GF019CPA2L05
+
+https://www.nokia.com/phones/en_int/nokia-105/specs?sku=1GF019CPA2L05
+
+** usb
+
+plug on computer, it provide a usb 1.1 device:
+
+#+BEGIN_SRC
+[115415.430562] usb 1-1.8.6: new full-speed USB device number 22 using ehci-pci
+#+END_SRC
+
+** screen
+
+https://github.com/Abhishektiwari7/lcd_nokia_105_drivers/tree/master
+
+I'm not sure it's this one, when I buy a new one, take a logic analyzer to capture the data on the screen.
+
+** firmware
+
+NOT FOUND
+
+** chip
+
+may be Mediatek MT6261D, Wait till I buy another one for reverse engineering.
+
+MT6261D datasheet:
+
+https://ia801603.us.archive.org/16/items/mediatek_202304/MT6261D_GSM_GPRS_SOC_Processor_Technical_Brief_v1.01.pdf
+
+may be same with MT6260:
+
+https://www.alldatasheet.com/view.jsp?Searchword=MT6260
+
+MT6261D programming guide:
+
+NOT FOUND
+
+MT6261D project:
+
+https://github.com/MediatekInfo/DZ09
+
+https://github.com/waybyte/tool-pymtkflasher
+
+https://github.com/Wiz-IO/wizio-mtk
