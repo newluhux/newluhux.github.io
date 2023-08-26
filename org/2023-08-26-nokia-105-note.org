@@ -37,7 +37,7 @@ TA-1557
 ...
 #+END_SRC
 
-ref:
+reference:
 
 https://www.youtube.com/watch?v=Lvvejc-M0bI
 
@@ -68,10 +68,10 @@ it look like flash mode for this phone :)
 
 it use generic usb serial driver on linux:
 
-``` shell
+#+BEGIN_SRC shell
 modprobe ftdi_sio
 echo 1782 4d00 > /sys/bus/usb-serial/drivers/generic/new_id
-```
+#+END_SRC
 
 reference:
 

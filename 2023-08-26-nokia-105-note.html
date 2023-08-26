@@ -79,7 +79,7 @@ my device:
 </pre>
 
 <p>
-ref:
+reference:
 </p>
 
 <p>
@@ -126,12 +126,11 @@ it look like flash mode for this phone :)
 it use generic usb serial driver on linux:
 </p>
 
-<p>
-``` shell
-modprobe ftdi_sio
-echo 1782 4d00 &gt; /sys/bus/usb-serial/drivers/generic/new_id
-```
-</p>
+<div class="org-src-container">
+<pre class="src src-shell"><code>modprobe ftdi_sio</code>
+<code>echo 1782 4d00 &gt; /sys/bus/usb-serial/drivers/generic/new_id</code>
+</pre>
+</div>
 
 <p>
 reference:
