@@ -28,22 +28,37 @@ NOT FOUND
 
 may be Mediatek MT6261D, Wait till I buy another one for reverse engineering.
 
-MT6261D datasheet:
+MT626X datasheet:
 
 https://ia801603.us.archive.org/16/items/mediatek_202304/MT6261D_GSM_GPRS_SOC_Processor_Technical_Brief_v1.01.pdf
 
-may be same with MT6260:
+https://datasheet4u.com/datasheet-pdf/MEDIATEK/MT6261D/pdf.php?id=1266527
 
 https://www.alldatasheet.com/view.jsp?Searchword=MT6260
 
-MT6261D programming guide:
+
+some useful site for mt626X:
+
+https://www.dr-lex.be/hardware/china_phone_flashing.html
+
+https://www.cnx-software.com/2015/11/24/no-1-d3-smartwatch-review/
+
+https://forum.xda-developers.com/t/universal-readback-extractor-for-mtk-feature-watchphones.3289272/
+
+https://www.kosagi.com/w/index.php?title=Fernvale_Main_Page
+
+MT626X programming guide:
 
 NOT FOUND
 
-MT6261D project:
+MT626X project:
 
 https://github.com/MediatekInfo/DZ09
 
 https://github.com/waybyte/tool-pymtkflasher
 
 https://github.com/Wiz-IO/wizio-mtk
+
+https://github.com/xobs/fernly
+
+
