@@ -1,10 +1,18 @@
 * Nokia 105(2G) Note
 
-I buy a new nokia 105(not 4G) from taobao:
+I buy a new nokia 105 (not 4G) from taobao:
 
 https://www.nokia.com/phones/en_int/nokia-105?sku=1GF019CPA2L05
 
 https://www.nokia.com/phones/en_int/nokia-105/specs?sku=1GF019CPA2L05
+
+It cost me 139 RMB.
+
+If the price of the machine you bought is more than 170 RMB, Probably not MTK's 2G chip.
+
+** machine picture
+
+TODO
 
 ** usb
 
@@ -57,7 +65,7 @@ https://github.com/cocktail828/dloader
 
 ** screen
 
-https://github.com/Abhishektiwari7/lcd_nokia_105_drivers/tree/master
+https://github.com/Abhishektiwari7/lcd_nokia_105_drivers/
 
 I'm not sure it's this one, when I buy a new one, take a logic analyzer to capture the data on the screen.
 
@@ -77,7 +85,6 @@ https://datasheet4u.com/datasheet-pdf/MEDIATEK/MT6261D/pdf.php?id=1266527
 
 https://www.alldatasheet.com/view.jsp?Searchword=MT6260
 
-
 some useful site for mt626X:
 
 https://www.dr-lex.be/hardware/china_phone_flashing.html
@@ -87,6 +94,28 @@ https://www.cnx-software.com/2015/11/24/no-1-d3-smartwatch-review/
 https://forum.xda-developers.com/t/universal-readback-extractor-for-mtk-feature-watchphones.3289272/
 
 https://www.kosagi.com/w/index.php?title=Fernvale_Main_Page
+
+https://forum.xda-developers.com/t/universal-readback-extractor-for-mtk-feature-watchphones.3289272/
+
+https://forum.xda-developers.com/t/mt6261-and-mt6260-source-code-discussion.3819263/
+
+https://forum.xda-developers.com/t/help-need-firmware-for-mt6260ma-a1-smartwatch.3872430/
+
+https://forum.xda-developers.com/t/smartchinares-mt6260-and-mt6261-language-and-mediaeditor.3610972/
+
+https://forum.xda-developers.com/t/dz09-mtk6260-and-6261-editor.3834122/
+
+https://forum.xda-developers.com/t/mtk-feature-watchphones-firmware-collection-6260a-6261da-2502a-2502c.3306203/page-2
+
+https://forum.xda-developers.com/tags/mt6260/
+
+https://forum.xda-developers.com/tags/mt6261/
+
+https://forum.gsmhosting.com/vbb/f723/tutorial-mtk-6260-625a-usb-method-1804948/
+
+https://www.open-electronics.org/reverse-engineering-mediatek-mt6260-the-fernvale-project-from-bunnie-wang/
+
+https://www.bunniestudios.com/blog/?p=4297
 
 MT626X programming guide:
 
@@ -102,4 +131,4 @@ https://github.com/Wiz-IO/wizio-mtk
 
 https://github.com/xobs/fernly
 
-
+https://github.com/NikolayPetukhov/qemu-mtk
