@@ -6,6 +6,10 @@ https://www.nokia.com/phones/en_int/nokia-105?sku=1GF019CPA2L05
 
 https://www.nokia.com/phones/en_int/nokia-105/specs?sku=1GF019CPA2L05
 
+phone guide:
+
+https://www.nokia.com/phones/en_int/support/api/pdf/nokia-105-user-guide?locale=en-US
+
 It cost me 139 RMB.
 
 If the price of the machine you bought is more than 170 RMB, Probably not MTK's 2G chip.
@@ -13,6 +17,29 @@ If the price of the machine you bought is more than 170 RMB, Probably not MTK's 
 ** machine picture
 
 TODO
+
+** device info
+
+enter code:
+
+#+BEGIN_SRC text
+*#0000#*
+#+END_SRC
+
+my device:
+
+#+BEGIN_SRC
+Nokia 105
+11.00.17.00
+12-04-2023
+TA-1557
+(C)Nokia
+...
+#+END_SRC
+
+ref:
+
+https://www.youtube.com/watch?v=Lvvejc-M0bI
 
 ** usb
 
@@ -39,7 +66,34 @@ Bus 001 Device 032: ID 1782:4d00 Spreadtrum Communications Inc.
 
 it look like flash mode for this phone :)
 
-I found some web site for this usb device id:
+it use generic usb serial driver on linux:
+
+``` shell
+modprobe ftdi_sio
+echo 1782 4d00 > /sys/bus/usb-serial/drivers/generic/new_id
+```
+
+reference:
+
+https://github.com/ilyakurdyukov/spreadtrum_flash/blob/fa20bcc314c931e0c790ba62ab028706d802ccc3/README.md?plain=1#L25
+
+** screen
+
+https://github.com/Abhishektiwari7/lcd_nokia_105_drivers/
+
+I'm not sure it's this one, when I buy a new one, take a logic analyzer to capture the data on the screen.
+
+** firmware
+
+TODO: extract firmware form real phone.
+
+** chip
+
+may be Mediatek MT6261D, Wait till I buy another one for reverse engineering.
+
+** end
+
+reference:
 
 https://treexy.com/products/driver-fusion/database/ports-com-lpt-serial/spreadtrum/sci-usb2serial/
 
@@ -63,14 +117,6 @@ https://research.nccgroup.com/2022/09/02/theres-another-hole-in-your-soc-unisoc-
 
 https://github.com/cocktail828/dloader
 
-** screen
-
-https://github.com/Abhishektiwari7/lcd_nokia_105_drivers/
-
-I'm not sure it's this one, when I buy a new one, take a logic analyzer to capture the data on the screen.
-
-** firmware
-
 https://naijarom.com/tag/miracle-box
 
 https://firmwarefile.com/nokia-105-2019-ta-1174
@@ -93,21 +139,11 @@ https://www.youtube.com/watch?v=U8y-UnvvI4k
 
 https://www.alltipsandflashbangla.com/2017/08/flashtoolv5142000-mt6261china-keypad.html
 
-TODO: extract firmware form real phone.
-
-** chip
-
-may be Mediatek MT6261D, Wait till I buy another one for reverse engineering.
-
-MT626X datasheet:
-
 https://ia801603.us.archive.org/16/items/mediatek_202304/MT6261D_GSM_GPRS_SOC_Processor_Technical_Brief_v1.01.pdf
 
 https://datasheet4u.com/datasheet-pdf/MEDIATEK/MT6261D/pdf.php?id=1266527
 
 https://www.alldatasheet.com/view.jsp?Searchword=MT6260
-
-some useful site for mt626X:
 
 https://www.dr-lex.be/hardware/china_phone_flashing.html
 
@@ -144,14 +180,6 @@ https://hackaday.com/tag/mt6260/
 https://forum.gsmhosting.com/vbb/f781/mtk-latest-factory-flash-tool-support-mt6260-1662646/
 
 https://forum.gsmhosting.com/vbb/f820/avengers-generic-mtk-tool-support-flash-bin-files-mt6260-2136579/
-
-
-
-MT626X programming guide:
-
-NOT FOUND
-
-MT626X project:
 
 https://github.com/MediatekInfo/DZ09
 
