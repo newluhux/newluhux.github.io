@@ -71,7 +71,29 @@ I'm not sure it's this one, when I buy a new one, take a logic analyzer to captu
 
 ** firmware
 
-NOT FOUND
+https://naijarom.com/tag/miracle-box
+
+https://firmwarefile.com/nokia-105-2019-ta-1174
+
+https://androiddatahost.com/fgh56
+
+https://www.firmwarexbd.com/2022/07/nokia-220-ta-1279-clone-mt6260-flash-file.html
+
+https://www.firmwarexbd.com/2020/03/miracle-box-282-thunder-edition-crack.html
+
+https://www.firmwarexbd.com/2020/03/download-mediatek-usb-vcom-drivers.html
+
+https://www.firmwarexbd.com/2022/06/nokia-106-ta-1114-clone-mt6260-flash-file.html
+
+https://www.firmwarexbd.com/2022/06/maximum-mb10-flash-file-version-3.html
+
+https://androidfilehost.com/?fid=15664248565197191315
+
+https://www.youtube.com/watch?v=U8y-UnvvI4k
+
+https://www.alltipsandflashbangla.com/2017/08/flashtoolv5142000-mt6261china-keypad.html
+
+TODO: extract firmware form real phone.
 
 ** chip
 
@@ -116,6 +138,14 @@ https://forum.gsmhosting.com/vbb/f723/tutorial-mtk-6260-625a-usb-method-1804948/
 https://www.open-electronics.org/reverse-engineering-mediatek-mt6260-the-fernvale-project-from-bunnie-wang/
 
 https://www.bunniestudios.com/blog/?p=4297
+
+https://hackaday.com/tag/mt6260/
+
+https://forum.gsmhosting.com/vbb/f781/mtk-latest-factory-flash-tool-support-mt6260-1662646/
+
+https://forum.gsmhosting.com/vbb/f820/avengers-generic-mtk-tool-support-flash-bin-files-mt6260-2136579/
+
+
 
 MT626X programming guide:
 
