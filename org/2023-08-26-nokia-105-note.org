@@ -14,6 +14,17 @@ plug on computer, it provide a usb 1.1 device:
 [115415.430562] usb 1-1.8.6: new full-speed USB device number 22 using ehci-pci
 #+END_SRC
 
+when we shutdown the phone:
+
+#+BEGIN_SRC
+[119569.012805] usb 1-1.8.6: new full-speed USB device number 24 using ehci-pci
+[119569.121561] usb 1-1.8.6: New USB device found, idVendor=1782, idProduct=4d00, bcdDevice= 0.01
+[119569.121581] usb 1-1.8.6: New USB device strings: Mfr=0, Product=0, SerialNumber=0
+[119573.907466] usb 1-1.8.6: USB disconnect, device number 24
+#+END_SRC
+
+it look like flash mode for this phone :)
+
 ** screen
 
 https://github.com/Abhishektiwari7/lcd_nokia_105_drivers/tree/master
