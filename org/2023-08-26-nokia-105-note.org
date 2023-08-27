@@ -41,6 +41,16 @@ reference:
 
 https://www.youtube.com/watch?v=Lvvejc-M0bI
 
+** boot key
+
+I found boot key is:
+
+#+BEGIN_SRC
+*
+#+END_SRC
+
+when hold boot key then bootup phone, device will into flash mode.
+
 ** usb
 
 plug on computer, it provide a usb 1.1 device:
@@ -66,7 +76,7 @@ Bus 001 Device 032: ID 1782:4d00 Spreadtrum Communications Inc.
 
 it look like flash mode for this phone :)
 
-it use generic usb serial driver on linux:
+it use generic usb serial driver on linux (not working, need capture usb data from windows) :
 
 #+BEGIN_SRC shell
 modprobe ftdi_sio
@@ -190,3 +200,11 @@ https://github.com/Wiz-IO/wizio-mtk
 https://github.com/xobs/fernly
 
 https://github.com/NikolayPetukhov/qemu-mtk
+
+https://github.com/ihewitt/ivrtrack/blob/main/util/dump.c
+
+https://github.com/ilyakurdyukov/mediatek_flash.git
+
+https://postmarketos.org/blog/2018/04/14/lowlevel/
+
+https://github.com/sutajiokousagi/fernvale-nuttx
