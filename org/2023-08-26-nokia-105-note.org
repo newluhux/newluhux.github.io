@@ -222,4 +222,16 @@ https://www.gsmarena.com/nokia_105_(2019)-9773.php
 
 https://www.datasheet4u.com/datasheet-pdf/Spreadtrum/SC6531E/pdf.php?id=1455703
 
+https://github.com/ilyakurdyukov/spreadtrum_flash
 
+https://github.com/Iscle/mksprdpac/blob/master/main.c
+
+https://androiddatahost.com/hgf64
+
+https://forum.gsmhosting.com/vbb/f723/spd-sc6531-dead-solution-1751715/
+
+https://github.com/ilyazx/bzpwork
+
+https://github.com/armijnhemel/binaryanalysis-ng
+
+https://www.martview-forum.com/threads/sc6533g-and-sc6531e-all-tested-files-here.10615/
