@@ -12,7 +12,7 @@ https://www.nokia.com/phones/en_int/support/api/pdf/nokia-105-user-guide?locale=
 
 It cost me 139 RMB.
 
-If the price of the machine you bought is more than 170 RMB, Probably not MTK's 2G chip.
+If the price of the machine you bought is more than 170 RMB, Probably not 2G version.
 
 ** machine picture
 
@@ -89,6 +89,8 @@ https://github.com/ilyakurdyukov/spreadtrum_flash/blob/fa20bcc314c931e0c790ba62a
 
 ** screen
 
+1. ST7735?
+
 https://github.com/Abhishektiwari7/lcd_nokia_105_drivers/
 
 I'm not sure it's this one, when I buy a new one, take a logic analyzer to capture the data on the screen.
@@ -99,7 +101,12 @@ TODO: extract firmware form real phone.
 
 ** chip
 
-may be Mediatek MT6261D, Wait till I buy another one for reverse engineering.
+may be:
+
+1. Mediatek MT6261D
+2. Spreadtrum SC6531E
+
+Wait till I buy another one for reverse engineering.
 
 ** end
 
@@ -208,3 +215,11 @@ https://github.com/ilyakurdyukov/mediatek_flash.git
 https://postmarketos.org/blog/2018/04/14/lowlevel/
 
 https://github.com/sutajiokousagi/fernvale-nuttx
+
+https://github.com/ilyakurdyukov/fpdoom
+
+https://www.gsmarena.com/nokia_105_(2019)-9773.php
+
+https://www.datasheet4u.com/datasheet-pdf/Spreadtrum/SC6531E/pdf.php?id=1455703
+
+
